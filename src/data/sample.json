@@ -1,0 +1,16 @@
+[
+    {
+        "id": "0",
+        "userName": "API",
+        "userPass": "admin",
+        "userMail": "test@gmail.com",
+        "userRol": "Observatorio_Admin"
+    },
+    {
+        "id": "1",
+        "userName": "Encuestado",
+        "userPass": "admin",
+        "userMail": "test2@gmail.com",
+        "userRol": "Observatorio"
+    }
+]
