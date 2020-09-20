@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import Menu from "./Menu";
-import Inicio from "./Summary";
+import Summary from "./Summary";
 
 class MainView extends Component {
     render() {
         return <div>
             <Menu/>
-            <Inicio/>
+            <Summary/>
         </div>
     }
 }
