@@ -1,0 +1,98 @@
+[
+    {
+        "id": "E2",
+        "title": "Inicial",
+        "questions": [
+            {
+                "id": "P1",
+                "question": "Indique su nombre y apellido",
+                "answer_type": "text"
+            },
+            {
+                "id": "P2",
+                "dependency_id": "P1",
+                "question": "Indique su edad",
+                "answer_type": "number"
+            },
+            {
+                "id": "P3",
+                "dependency_id": "P2",
+                "question": "¿Es usted casado?",
+                "answer_type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "E1",
+        "title": "Laboral",
+        "questions": [
+            {
+                "id": "P1",
+                "question": "Indique su nombre y apellido",
+                "answer_type": "text"
+            },
+            {
+                "id": "P2",
+                "dependency_id": "P1",
+                "question": "Indique su edad",
+                "answer_type": "number"
+            },
+            {
+                "id": "P3",
+                "dependency_id": "P2",
+                "question": "¿Es usted casado?",
+                "answer_type": "boolean"
+            },
+            {
+                "id": "P4",
+                "dependency_id": "P3",
+                "question": "Sexo",
+                "answer_type": "multiple_choice",
+                "only_one_selection": true,
+                "options": [
+                    "masculino",
+                    "femenino",
+                    "otro"
+                ]
+            },
+            {
+                "id": "P5",
+                "dependency_id": "P4",
+                "question": "Aptitudes",
+                "answer_type": "multiple_choice",
+                "only_one_selection": false,
+                "options": [
+                    "Developer Frontend",
+                    "Developer Backend",
+                    "Infraestructura"
+                ]
+            },  
+            {          
+                "id": "P6",
+                "dependency_id": "P5",
+                "question": "¿Se encuentra sin trabajo?",
+                "answer_type": "boolean"
+            },
+            {          
+                "id": "P7",
+                "dependency_id": "P6",
+                "dependency_value": true,
+                "question": "¿Desea recibir una oferta laboral?",
+                "answer_type": "boolean"
+            },
+            {          
+                "id": "P8",
+                "dependency_id": "P6",
+                "dependency_value": false,
+                "question": "¿Está satisfecho con su remuneración actual?",
+                "answer_type": "boolean"
+            },
+            {          
+                "id": "P9",
+                "dependency_id": "P8",
+                "question": "¿Tiene pensado buscar otras alternativas?",
+                "answer_type": "boolean"
+            }
+        ]
+    }
+]
