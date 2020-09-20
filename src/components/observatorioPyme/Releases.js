@@ -7,9 +7,11 @@ class Releases extends Component {
     }
 
     render() {
-        return <div>
-            releases
-        </div>
+        if(this.state.visible) {
+            return <div>
+                    Lanzamientos
+                   </div>
+        }
     }
 }
 

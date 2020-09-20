@@ -6,13 +6,7 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import WorkIcon from '@material-ui/icons/Work';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
-import Companies from "./Companies";
-
 class MenuObservatorio extends Component {
-
-    showItemDetail() {
-        return <Companies /> 
-    }
 
     render () {
         return <div>
@@ -20,19 +14,19 @@ class MenuObservatorio extends Component {
                         <ListItemIcon>
                             <DashboardIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Summary" />
+                        <ListItemText primary="Inicio" />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
                             <LaunchIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Releases" />
+                        <ListItemText primary="Lanzamientos" />
                     </ListItem>
-                    <ListItem button onClick= {this.showItemDetail}>
+                    <ListItem button>
                         <ListItemIcon>
                             <WorkIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Companies" />
+                        <ListItemText primary="Empresas" />
                     </ListItem>
                </div>
     }
