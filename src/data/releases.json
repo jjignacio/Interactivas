@@ -1,0 +1,16 @@
+[
+    {
+        "id": "L1",
+        "Descripción": "Lanzamiento nro 1",
+        "id_encuesta": "E1",
+        "fecha": "20200815",
+        "companies": ["Empresa1", "Empresa2", "Empresa4"]
+    },
+    {
+        "id": "L2",
+        "Descripción": "Lanzamiento nro 2",
+        "id_encuesta": "E2",
+        "fecha": "20200910",
+        "companies": ["Empresa1", "Empresa3"]
+    }
+]

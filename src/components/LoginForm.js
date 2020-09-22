@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import users from '../data/sample.json';
+import users from '../data/users.json';
 
 class LoginForm extends Component {
     constructor(props) {

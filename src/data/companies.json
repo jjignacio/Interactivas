@@ -1,0 +1,50 @@
+[
+    {
+        "id": "Empresa1",
+        "razon_social": "Netflix",
+        "cuit": 4301231232,
+        "domicilio": "Chile 1310",
+        "codigo_postal": 1661,
+        "localidad": "San Fernando",
+        "partido": "San Fernando",
+        "provincia": "Buenos Aires",
+        "telefono": 1123456787,
+        "email": "netflix@gmail.com"
+    },
+    {
+        "id": "Empresa2",
+        "razon_social": "Ualá",
+        "cuit": 4243242423,
+        "domicilio": "Bolivia 3110",
+        "codigo_postal": 1642,
+        "localidad": "CABA",
+        "partido": "CABA",
+        "provincia": "Buenos Aires",
+        "telefono": 1245676543,
+        "email": "uala@gmail.com"
+    },
+    {
+        "id": "Empresa3",
+        "razon_social": "Amazon",
+        "cuit": 653464645,
+        "domicilio": "Peru 4310",
+        "codigo_postal": 1621,
+        "localidad": "Don Torcuato",
+        "partido": "Tigre",
+        "provincia": "Buenos Aires",
+        "telefono": 3456543432,
+        "email": "aws@gmail.com"
+    },
+    {
+        "id": "Empresa4",
+        "razon_social": "Tesla",
+        "cuit": 4535345345,
+        "domicilio": "America 4532",
+        "codigo_postal": 6454,
+        "localidad": "San Isidro",
+        "partido": "San Isidro",
+        "provincia": "Buenos Aires",
+        "telefono": 53453535345,
+        "email": "tesla@gmail.com"
+    }
+]
