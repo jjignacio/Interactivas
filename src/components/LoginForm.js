@@ -21,26 +21,37 @@ class LoginForm extends Component {
         console.log(user_pass);
 
         let userName = this.state.users.map(e => e.userName);
+        let userRol = this.state.users.map(e => e.userRol);
         let i = 0;
         let usuarioValido = false;
         while(i < userName.length) {
             if(userName[i].localeCompare(user_name) == 0) {
                 usuarioValido = true;
+                userRol = userRol[i];
                 break;
             }
             i++;
         }
-
         if(usuarioValido == true) {
-            alert('El usuario: ' + user_name + " es valido.");
-            this.props.history.push({
-                pathname: this.props.history.push('/home')      
-            });
+            if(userRol === "Observatorio_Admin") {
+                alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
+                this.props.history.push('/observatorioPyme');
+            } else {
+                alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
+                this.props.history.push('/empresa');
+            }
+            
         } else {
             alert('El usuario: ' + user_name + " NO es valido.");
         }
 
         event.preventDefault();
+    }
+
+    async redireccionar(userRol) {
+        this.props.history.push({
+            pathname: this.props.history.push('/home')      
+        });
     }
 
     myChangeHandler = (event) => {

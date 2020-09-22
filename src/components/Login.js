@@ -24,7 +24,7 @@ class Login extends Component {
                         <div className="card-body" style={{width: "27rem"}}>
                             <img src={logo_fund} className="img-fluid rounded mx-auto d-block" alt="Fundaci&oacute;n Observatorio Pyme" />
                             
-                            <LoginForm/>
+                            <LoginForm history={this.props.history}/>
                             
                         </div>
                         <div className="card-footer text-muted text-center">
@@ -51,7 +51,7 @@ class Login extends Component {
                         <div className="card-body" style={{width: "27rem"}}>
                             <img src={logo_fund} className="img-fluid rounded mx-auto d-block" alt="Fundaci&oacute;n Observatorio Pyme" />
                             
-                            <LoginReset/>
+                            <LoginReset history={this.props.history}/>
                             
                         </div>
                         <div className="card-footer text-muted text-center">
