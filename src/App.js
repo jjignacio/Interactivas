@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
 import Empresa from './components/empresa/Company'
+
 import ObservatorioPyme from './components/observatorioPyme/MainView'
 
 class App extends Component {
