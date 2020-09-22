@@ -2,7 +2,6 @@ import React, {Component}  from 'react';
 import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
-import Home from './components/Home'
 import Empresa from './components/empresa/Company'
 import ObservatorioPyme from './components/observatorioPyme/MainView'
 
@@ -12,7 +11,6 @@ class App extends Component {
     return (
       <Router>
         <Route exact path="/login" component = {Login} />
-        <Route path="/home" component={Home}/>
         <Route path="/empresa" component={Empresa}/>
         <Route path="/observatorioPyme" component={ObservatorioPyme}/>
         <Route exact path="/" render={() => <Redirect to="/login"/>} />
