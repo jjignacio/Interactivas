@@ -1,7 +1,8 @@
 [
     {
         "id": "E2",
-        "title": "Inicial",
+        "title": "Encuesta Satisfacción del cliente",
+        "description": "La satisfacción del cliente es un término que se utiliza con frecuencia en marketing. Es una medida de cómo los productos y servicios suministrados por una empresa cumplen o superan las expectativas del cliente.",
         "questions": [
             {
                 "id": "P1",
@@ -24,7 +25,8 @@
     },
     {
         "id": "E1",
-        "title": "Laboral",
+        "title": "Encuesta Compromiso Organizacional",
+        "description": "Compromiso organizacional es el grado en que un empleado se identifica con una organización en particular y las metas de ésta, y desea mantener su relación con ella.",
         "questions": [
             {
                 "id": "P1",

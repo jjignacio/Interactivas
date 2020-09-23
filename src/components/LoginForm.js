@@ -25,14 +25,14 @@ class LoginForm extends Component {
         let i = 0;
         let usuarioValido = false;
         while(i < userName.length) {
-            if(userName[i].localeCompare(user_name) == 0) {
+            if(userName[i].localeCompare(user_name) === 0) {
                 usuarioValido = true;
                 userRol = userRol[i];
                 break;
             }
             i++;
         }
-        if(usuarioValido == true) {
+        if(usuarioValido === true) {
             if(userRol === "Observatorio_Admin") {
                 alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
                 this.props.history.push('/observatorioPyme');
