@@ -1,9 +1,7 @@
 import React from 'react';
 import ReleasesEmpresas from './ReleasesEmpresas';
 import ReleasesEncuestas from './ReleasesEncuestas';
-import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 

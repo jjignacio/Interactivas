@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/login" component = {Lanzamientos} />
+        <Route exact path="/login" component = {Login} />
         <Route path="/empresa" component={Empresa}/>
         <Route path="/encuesta" component={Encuesta}/>
         <Route path="/perfil" component={Profile}/>
