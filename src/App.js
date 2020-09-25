@@ -17,7 +17,7 @@ import ListadoEmpresas from './components/observatorioPyme/Companies'
 class App extends Component {
 
   render() {
-    return (
+    return ( 
       <Router>
         <Route exact path="/login" component = {Login} />
         <Route path="/empresa" component={Empresa}/>

@@ -1,32 +1,36 @@
-import React, { Component } from "react";
+import React from 'react';
+import ReleasesEmpresas from './ReleasesEmpresas';
+import ReleasesEncuestas from './ReleasesEncuestas';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-// Componentes
-import Menu from "./Menu";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
-class Releases extends Component {
+export default function AutoGrid() {
+  const classes = useStyles();
 
-    render() {
-        return (
-            <div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col col-sm-12 col-md-3 col-lg-2 bg-light text-secondary vh-100">
-                            <div className="mt-5">
-                                <Menu history={this.props.history}/>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="container p-3">
-                                <div className="row justify-content-center">
-                                    Codigo Pablo.
-                                </div>        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid ReleasesEmpresas xs>
+          <ReleasesEmpresas />
+        </Grid>
+        <Grid item xs>
+          <ReleasesEncuestas />
+        </Grid>
+      </Grid>
+      <Button variant="contained">Siguiente</Button>
+    </div>
+  );
+
 }
-
-export default Releases;
