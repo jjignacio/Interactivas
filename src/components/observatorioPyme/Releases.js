@@ -1,18 +1,37 @@
-import React, { Component } from "react";
+import React from 'react';
+import ReleasesEmpresas from './ReleasesEmpresas';
+import ReleasesEncuestas from './ReleasesEncuestas';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-class Releases extends Component {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
-    state = {
-        visible: false
-    }
+export default function AutoGrid() {
+  const classes = useStyles();
 
-    render() {
-        if(this.state.visible) {
-            return <div>
-                    Lanzamientos
-                   </div>
-        }
-    }
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid ReleasesEmpresas xs>
+          <ReleasesEmpresas />
+        </Grid>
+        <Grid item xs>
+          <ReleasesEncuestas />
+        </Grid>
+      </Grid>
+      <Button variant="contained">Siguiente</Button>
+    </div>
+  );
 }
-
-export default Releases;
