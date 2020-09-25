@@ -68,32 +68,6 @@
                     "Developer Backend",
                     "Infraestructura"
                 ]
-            },  
-            {          
-                "id": "P6",
-                "dependency_id": "P5",
-                "question": "¿Se encuentra sin trabajo?",
-                "answer_type": "boolean"
-            },
-            {          
-                "id": "P7",
-                "dependency_id": "P6",
-                "dependency_value": true,
-                "question": "¿Desea recibir una oferta laboral?",
-                "answer_type": "boolean"
-            },
-            {          
-                "id": "P8",
-                "dependency_id": "P6",
-                "dependency_value": false,
-                "question": "¿Está satisfecho con su remuneración actual?",
-                "answer_type": "boolean"
-            },
-            {          
-                "id": "P9",
-                "dependency_id": "P8",
-                "question": "¿Tiene pensado buscar otras alternativas?",
-                "answer_type": "boolean"
             }
         ]
     }
