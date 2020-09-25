@@ -4,13 +4,22 @@ import React, { Component } from 'react';
 import Nav from './Nav'
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+        this.goBack = this.goBack.bind(this);
+        };
+
+    goBack(){
+         this.props.history.goBack();
+    }
+
     render() {
         return (
             <div>
                <Nav history={this.props.history}/>
                <div className = 'container'>   
                     <nav className = 'navbar navbar-light bg-light fixed-top' style ={{backgroundColor : 300}}>
-                         <button class="btn btn-default" style = {{fontSize: '18px'}}>Regresar</button>
+                         <button onClick ={this.goBack} class="btn btn-default" style = {{fontSize: '18px'}}>Regresar</button>
                          <t class="navbar-brand"> Perfil </t>
                     </nav>
                     <img class = 'float-left fixed-top img-thumbnail' src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Netflix-new-icon.png/768px-Netflix-new-icon.png" width="420" height="420" alt="" style = {{top: '190px', left: '10px'}}></img>

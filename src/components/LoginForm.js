@@ -61,7 +61,7 @@ class LoginForm extends Component {
         return (
             <div>
                 <h4 className="text-center p-2">Iniciar sesi&oacute;n</h4>
-                <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2">Iniciar sesi&oacute;n en Nombre_Proyecto para continuar hacia la encuesta (Desarrollo)</p></small>
+                <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2"></p></small>
 
                 <form onSubmit={this.handleSubmit}>
                     <div className="row justify-content-center p-3">
