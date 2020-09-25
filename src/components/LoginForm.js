@@ -60,7 +60,7 @@ class LoginForm extends Component {
     render() {
         return (
             <div>
-                <h4 className="text-center p-2">Iniciar sesi&oacute;n</h4>
+                <h4 className="text-center p-2" color="rgb(83 86 90)">Iniciar sesi&oacute;n</h4>
                 <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2"></p></small>
 
                 <form onSubmit={this.handleSubmit}>
@@ -73,7 +73,7 @@ class LoginForm extends Component {
                                     name="user_name"  
                                     autoComplete="off" 
                                     autoFocus={true} 
-                                    placeholder="Correo electr&oacute;nico" 
+                                    placeholder="Email o nombre de usuario" 
                                     required
                                     className={this.state.className}
                                     onChange={this.myChangeHandler} 
