@@ -17,11 +17,18 @@ class Survey extends Component {
         };
     }
 
+    handleOnSubmit = e => {
+        e.preventDefault();
+        // pass form data
+        // get it from state
+        const formData = {};
+      };
+
     renderTextQuestion() {
         // Funcion para crear componentes de preguntas tipo texto.
         return this.state.questions
         .filter(pregunta => pregunta.answer_type.localeCompare("text") === 0)
-        .map(pregunta => <TextQuestion pregunta = {pregunta.question} key={pregunta.id}/>)
+        .map(pregunta => <TextQuestion pregunta = {pregunta} key={pregunta.id}/>)
 
     }
 
@@ -37,7 +44,7 @@ class Survey extends Component {
         // Funcion para crear componentes de preguntas tipo Boolean.
         return this.state.questions
         .filter(pregunta => pregunta.answer_type.localeCompare("boolean") === 0)
-        .map(pregunta => <BooleanQuestion pregunta = {pregunta.question} key={pregunta.id}/>)
+        .map(pregunta => <BooleanQuestion pregunta = {pregunta} key={pregunta.id}/>)
 
     }
 
@@ -47,6 +54,11 @@ class Survey extends Component {
         .filter(pregunta => pregunta.answer_type.localeCompare("multiple_choice") === 0 )
         .map(pregunta => <SelectQuestion pregunta = {pregunta} key={pregunta.id}/>)
     }
+
+    // Botones
+    cancel = () => {
+        this.props.history.push('/empresa');
+    }
         
     render() {
         return (
@@ -54,7 +66,7 @@ class Survey extends Component {
                 <Nav history={this.props.history}/>
                 <div className="container p-3">
                     <div className="row justify-content-center align-items-center">
-                        <div className="col col-sm-12 col-md-8 col-lg-10">
+                        <div className="col col-sm-12 col-md-9 col-lg-8">
                             <div className="card mt-2">
                                 <div className="card-header">
                                     <div className="mt-2">
@@ -70,12 +82,36 @@ class Survey extends Component {
                                     </form>
                                 </div>
                                 <div className="card-footer">
-                                    <button
-                                        type="submit"
-                                        value="Submit"
-                                        className="btn btn-primary float-right">
-                                        Enviar
-                                    </button>
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col col-sm-12 col-md-4 col-lg-4 align-items-left">
+                                                <button
+                                                    type="submit"
+                                                    value="Submit"
+                                                    className="btn btn-danger"
+                                                    onClick={this.cancel}>
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                            <div className="col col-sm-12 col-md-4 col-lg-6">
+                                                <button
+                                                    type="submit"
+                                                    value="Submit"
+                                                    className="btn btn-primary float-right"
+                                                    onClick={this.cancel}>
+                                                    Guardar y Salir
+                                                </button>
+                                            </div>
+                                            <div className="col col-sm-12 col-md-4 col-lg-2">
+                                                <button
+                                                    type="submit"
+                                                    value="Submit"
+                                                    className="btn btn-success float-right">
+                                                    <span className="ml-1 mr-1"> Enviar</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div> 
                         </div>

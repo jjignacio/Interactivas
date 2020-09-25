@@ -9,6 +9,8 @@ class LoginForm extends Component {
             user_name: '',
             user_pass: '',
             users: users,
+            msj_error: false,
+            className: 'form-control',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,14 +20,14 @@ class LoginForm extends Component {
         let user_name = this.state.user_name;
         let user_pass = this.state.user_pass;
 
-        console.log(user_pass);
-
         let userName = this.state.users.map(e => e.userName);
+        let userPass = this.state.users.map(e => e.userPass);
         let userRol = this.state.users.map(e => e.userRol);
+
         let i = 0;
         let usuarioValido = false;
         while(i < userName.length) {
-            if(userName[i].localeCompare(user_name) === 0) {
+            if(userName[i].localeCompare(user_name) === 0 && userPass[i].localeCompare(user_pass) === 0) {
                 usuarioValido = true;
                 userRol = userRol[i];
                 break;
@@ -34,28 +36,22 @@ class LoginForm extends Component {
         }
         if(usuarioValido === true) {
             if(userRol === "Observatorio_Admin") {
-                alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
-                this.props.history.push('/observatorioPyme');
+                this.props.history.push('/dashboard');
             } else {
-                alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
                 this.props.history.push('/empresa');
             }
             
         } else {
-            alert('El usuario: ' + user_name + " NO es valido.");
+            if(this.state.msj_error === false) {
+                this.setState({msj_error: !this.state.msj_error})
+                this.setState({className: "form-control is-invalid"});
+            }
         }
 
         event.preventDefault();
     }
 
-    async redireccionar(userRol) {
-        this.props.history.push({
-            pathname: this.props.history.push('/home')      
-        });
-    }
-
     myChangeHandler = (event) => {
-        console.log(event.target.value);
         let nam = event.target.name;
         let val = event.target.value;
         this.setState({[nam]: val});
@@ -74,12 +70,12 @@ class LoginForm extends Component {
                                 <input 
                                     id="user_name" 
                                     type="text" 
-                                    name="user_name" 
-                                    className="form-control" 
+                                    name="user_name"  
                                     autoComplete="off" 
                                     autoFocus={true} 
                                     placeholder="Correo electr&oacute;nico" 
-                                    required 
+                                    required
+                                    className={this.state.className}
                                     onChange={this.myChangeHandler} 
                                     value={this.state.user_name}/>
                             </div>
@@ -90,14 +86,16 @@ class LoginForm extends Component {
                                     id="user_pass" 
                                     type="password" 
                                     name="user_pass" 
-                                    className="form-control" 
                                     autoComplete="off" 
                                     placeholder="Contrase&ntilde;a" 
-                                    required 
+                                    required
+                                    className={this.state.className}
                                     onChange={this.myChangeHandler} 
                                     value={this.state.user_pass }/>
                             </div>
                         </div>
+                        { this.state.msj_error ? ( <small className="text-danger">Ingresa un correo electr&oacute;nico y contrase&ntilde;a validos</small> ) : null }
+                        
                     </div>
                 
                     <div className="row p-3 justify-content-center">
