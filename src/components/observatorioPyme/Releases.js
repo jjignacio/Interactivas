@@ -1,43 +1,37 @@
-import * as React from 'react';
-import { DataGrid } from '@material-ui/data-grid';
-import { DataGrid as DataGrid2 } from '@material-ui/data-grid';
+import React from 'react';
+import ReleasesEmpresas from './ReleasesEmpresas';
+import ReleasesEncuestas from './ReleasesEncuestas';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-const columnsEmpresas = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'nombreEmpresa', headerName: 'Nombre Empresa', width: 130 },
-];
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
-const rowsEmpresas = [
-  { id: 1, nombreEmpresa: 'Empresa1'},
-  { id: 2, nombreEmpresa: 'Empresa2' },
-  { id: 3, nombreEmpresa: 'Empresa3' },
-  { id: 4, nombreEmpresa: 'Empresa4'},
-];
+export default function AutoGrid() {
+  const classes = useStyles();
 
-const columnsEncuestas = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'nombreEncuesta', headerName: 'Nombre Encuesta', width: 230 },
-  ];
-  
-  const rowsEncuestas = [
-    { id: 1, nombreEncuesta: 'Encuesta1'},
-    { id: 2, nombreEncuesta: 'Encuesta2' },
-    { id: 3, nombreEncuesta: 'Encuesta3' },
-    { id: 4, nombreEncuesta: 'Encuesta4'},
-  ];
-
-
-export default function tablaEmpresasEncuestas() {
   return (
-    <div style={{ height: 400, width: '30%', position: 'relative', left: '0%' }}>
-      <DataGrid rows={rowsEmpresas} columns={columnsEmpresas}  checkboxSelection />
-      <br></br>
-      <DataGrid style={ {border: '200px' , border: 'double'} } rows={rowsEncuestas} columns={columnsEncuestas} checkboxSelection />
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid ReleasesEmpresas xs>
+          <ReleasesEmpresas />
+        </Grid>
+        <Grid item xs>
+          <ReleasesEncuestas />
+        </Grid>
+      </Grid>
+      <Button variant="contained">Siguiente</Button>
     </div>
-    // <div style={{ height: 400, width: '20%', position: 'relative', left: '50%' }}>
-      
-    // </div>
   );
 }
-
-//################################################                      ################################################//
