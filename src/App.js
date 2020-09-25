@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Empresa from './components/empresa/Company'
 import Encuesta from './components/empresa/Survey'
 import Profile from './components/empresa/Profile'
+import Lanzamientos from './components/observatorioPyme/Releases'
 import ObservatorioPyme from './components/observatorioPyme/MainView'
 
 class App extends Component {
@@ -12,10 +13,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/login" component = {Login} />
+        <Route exact path="/login" component = {Lanzamientos} />
         <Route path="/empresa" component={Empresa}/>
         <Route path="/encuesta" component={Encuesta}/>
         <Route path="/perfil" component={Profile}/>
+        <Route path="/lanzamientos" component={Lanzamientos}/>
         <Route path="/observatorioPyme" component={ObservatorioPyme}/>
         <Route exact path="/" render={() => <Redirect to="/login"/>} />
       </Router>
