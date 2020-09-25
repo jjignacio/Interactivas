@@ -9,7 +9,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 class MenuObservatorio extends Component {
 
     render () {
-        return <div>
+        return <div> 
                     <ListItem button>
                         <ListItemIcon>
                             <DashboardIcon />
@@ -33,4 +33,3 @@ class MenuObservatorio extends Component {
 }
 
 export default MenuObservatorio;
-

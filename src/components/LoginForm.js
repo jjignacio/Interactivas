@@ -35,12 +35,12 @@ class LoginForm extends Component {
         if(usuarioValido === true) {
             if(userRol === "Observatorio_Admin") {
                 alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
-                this.props.history.push('/observatorioPyme');
+                this.props.history.push('/AltaOPYM');
             } else {
                 alert('El usuario: ' + user_name + " con rol "+ userRol +" es valido. ");
                 this.props.history.push('/empresa');
             }
-            
+
         } else {
             alert('El usuario: ' + user_name + " NO es valido.");
         }
@@ -50,7 +50,7 @@ class LoginForm extends Component {
 
     async redireccionar(userRol) {
         this.props.history.push({
-            pathname: this.props.history.push('/home')      
+            pathname: this.props.history.push('/home')
         });
     }
 
@@ -71,45 +71,45 @@ class LoginForm extends Component {
                     <div className="row justify-content-center p-3">
                         <div className="col-md-10 mb-10">
                             <div className="form-group">
-                                <input 
-                                    id="user_name" 
-                                    type="text" 
-                                    name="user_name" 
-                                    className="form-control" 
-                                    autoComplete="off" 
-                                    autoFocus={true} 
-                                    placeholder="Correo electr&oacute;nico" 
-                                    required 
-                                    onChange={this.myChangeHandler} 
+                                <input
+                                    id="user_name"
+                                    type="text"
+                                    name="user_name"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    autoFocus={true}
+                                    placeholder="Correo electr&oacute;nico"
+                                    required
+                                    onChange={this.myChangeHandler}
                                     value={this.state.user_name}/>
                             </div>
                         </div>
                         <div className="col-md-10 mb-10">
                             <div className="form-group">
-                                <input 
-                                    id="user_pass" 
-                                    type="password" 
-                                    name="user_pass" 
-                                    className="form-control" 
-                                    autoComplete="off" 
-                                    placeholder="Contrase&ntilde;a" 
-                                    required 
-                                    onChange={this.myChangeHandler} 
+                                <input
+                                    id="user_pass"
+                                    type="password"
+                                    name="user_pass"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    placeholder="Contrase&ntilde;a"
+                                    required
+                                    onChange={this.myChangeHandler}
                                     value={this.state.user_pass }/>
                             </div>
                         </div>
                     </div>
-                
+
                     <div className="row p-3 justify-content-center">
                         <div className="col-md-10 mb-10">
-                            <button 
-                                type="submit" 
-                                value="Submit" 
-                                id="submit-btn" 
+                            <button
+                                type="submit"
+                                value="Submit"
+                                id="submit-btn"
                                 className="btn btn-primary btn-block"> Iniciar sesi&oacute;n
                             </button>
                         </div>
-                    </div>    
+                    </div>
                 </form>
             </div>
         )
