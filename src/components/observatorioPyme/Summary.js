@@ -19,6 +19,8 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css"; 
 
+// Componentes
+import Menu from "./Menu";
 
 export default class Summary extends Component {
 
@@ -30,25 +32,42 @@ export default class Summary extends Component {
             fontSize: 17,
             };
 
-        return <div>
-                <TableContainer component={Paper}>
-                    <Table aria-label="collapsible table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell />
-                                <TableCell style= {principalColumnsStyle}>Encuesta</TableCell>
-                                <TableCell style= {principalColumnsStyle}>Fecha lanzamiento</TableCell>
-                                <TableCell style= {principalColumnsStyle}>Fecha vencimiento</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <Row key={row.name} row={row} />
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+        return (
+            <div>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary vh-100">
+                            <div className="mt-5">
+                                <Menu history={this.props.history}/>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="container p-3">
+                                <div className="row justify-content-center">
+                                <TableContainer component={Paper}>
+                                    <Table aria-label="collapsible table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell />
+                                                <TableCell style= {principalColumnsStyle}>Encuesta</TableCell>
+                                                <TableCell style= {principalColumnsStyle}>Fecha lanzamiento</TableCell>
+                                                <TableCell style= {principalColumnsStyle}>Fecha vencimiento</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {rows.map((row) => (
+                                                <Row key={row.name} row={row} />
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                </div>        
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        )
     }
 }
 

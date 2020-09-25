@@ -32,4 +32,5 @@ export default function AutoGrid() {
       <Button variant="contained">Siguiente</Button>
     </div>
   );
+
 }

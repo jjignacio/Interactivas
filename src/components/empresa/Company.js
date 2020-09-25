@@ -8,6 +8,7 @@ import SurveyView from './SurveyView'
 import encuestas from '../../data/encuestasModelo.json'
 
 class Company extends Component {
+    // Lista las encuestas disponibles.
     constructor(props) {
         super(props);
         this.state = {
