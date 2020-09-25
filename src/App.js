@@ -6,6 +6,7 @@ import Empresa from './components/empresa/Company'
 import Encuesta from './components/empresa/Survey'
 import Profile from './components/empresa/Profile'
 import ObservatorioPyme from './components/observatorioPyme/MainView'
+import Summary from './components/observatorioPyme/Summary'
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path="/encuesta" component={Encuesta}/>
         <Route path="/perfil" component={Profile}/>
         <Route path="/observatorioPyme" component={ObservatorioPyme}/>
+        <Route path="/summary" component={Summary}/>
         <Route exact path="/" render={() => <Redirect to="/login"/>} />
       </Router>
     )
