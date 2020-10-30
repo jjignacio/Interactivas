@@ -19,8 +19,8 @@ class LoginReset extends Component {
         if(this.state.show) {
             return(
                 <div>
-                    <h4 className="text-center p-2">Restablecer contrase&ntilde;a</h4>
-                    <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2">Ingres&aacute; tu email y te enviaremos las instrucciones sobre cómo restablecer tu contraseña. (Desarrollo)</p></small>
+                    <h4 className="text-center p-3">Restablecer contrase&ntilde;a</h4>
+                    <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2 text-muted">Ingres&aacute; tu email y te enviaremos las instrucciones sobre cómo restablecer tu contraseña.</p></small>
 
                     <form onSubmit={this.handleSubmit}>
                         <div className="row justify-content-center p-3">
@@ -41,7 +41,12 @@ class LoginReset extends Component {
                             
                         <div className="row p-3 justify-content-center">
                             <div className="col-md-10 mb-10">
-                                <button type="submit" id="submit-btn" className="btn btn-primary btn-block">Enviar un email</button>
+                                <button 
+                                    type="submit" 
+                                    id="submit-btn" 
+                                    className="btn btn-primary btn-block color-fundacion-boton">
+                                    Enviar un email
+                                </button>
                             </div>
                         </div>
                     </form>

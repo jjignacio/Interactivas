@@ -46,5 +46,17 @@
         "provincia": "Buenos Aires",
         "telefono": 53453535345,
         "email": "tesla@gmail.com"
+    },
+    {
+        "id": "Empresa5",
+        "razon_social": "Grupo INSUD",
+        "cuit": 4535345345,
+        "domicilio": "Bulnes 4532",
+        "codigo_postal": 145,
+        "localidad": "Palermo",
+        "partido": "Palermo",
+        "provincia": "Buenos Aires",
+        "telefono": 114345654,
+        "email": "grupoinsud@gmail.com"
     }
 ]

@@ -11,7 +11,7 @@ class Nav extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+                <nav className="navbar navbar-expand-lg navbar-dark color-fundacion-menu">
                     <div className="container-fluid">
                     <a className="navbar-brand" href="/empresa">Encuestas Fundacion Pyme</a>
                     <div>
@@ -19,7 +19,7 @@ class Nav extends Component {
                         <li className="nav-item dropdown">
                             <button
                                 type="button"
-                                className="btn btn-primary dropdown-toggle"
+                                className="btn btn-primary dropdown-toggle color-fundacion-boton"
                                 data-toggle="dropdown" 
                                 aria-haspopup="true" 
                                 aria-expanded="false">

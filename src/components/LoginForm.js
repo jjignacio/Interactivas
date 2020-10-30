@@ -60,8 +60,7 @@ class LoginForm extends Component {
     render() {
         return (
             <div>
-                <h4 className="text-center p-2">Iniciar sesi&oacute;n</h4>
-                <small><p className="font-weight-normal card-subtitle mb-2 text-center p-2"></p></small>
+                <h4 className="text-center p-3">Iniciar sesi&oacute;n</h4>
 
                 <form onSubmit={this.handleSubmit}>
                     <div className="row justify-content-center p-3">
@@ -95,7 +94,6 @@ class LoginForm extends Component {
                             </div>
                         </div>
                         { this.state.msj_error ? ( <small className="text-danger">Ingresa un correo electr&oacute;nico y contrase&ntilde;a validos</small> ) : null }
-                        
                     </div>
                 
                     <div className="row p-3 justify-content-center">
@@ -104,7 +102,7 @@ class LoginForm extends Component {
                                 type="submit" 
                                 value="Submit" 
                                 id="submit-btn" 
-                                className="btn btn-primary btn-block"> Iniciar sesi&oacute;n
+                                className="btn btn-primary btn-block color-fundacion-boton"> Iniciar sesi&oacute;n
                             </button>
                         </div>
                     </div>    

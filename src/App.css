@@ -2,3 +2,44 @@
   background-color: #F0F0F0; 
   font-family: 'Roboto', sans-serif;
 }
+
+.fondo-login {
+  background-image: url('./img/fondo.jpeg');
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.color-fundacion-boton {
+  background-color: #31aab9 !important;
+  border-color: #31aab9 !important;
+}
+
+.color-fundacion-boton:hover {
+  background-color: #288692 !important;
+}
+
+.color-fundacion-menu {
+  background-color: #31aab9 !important;
+  border-color: #31aab9 !important;
+}
+
+/**** Botones vista perfil Empresa, encuestas disponibles. ****/
+.btn-outline-fundacion {
+  color: #31aab9 !important;
+  border-color: #31aab9 !important;
+}
+
+.btn-outline-fundacion:hover {
+  color: #fff !important;
+  background-color: #31aab9;
+  border-color: #31aab9;
+}
+/**** ---------------------------------------------------- ****/
+
+.lateral-menu {
+  min-height: 100vh;
+}
+
+.no-box:focus {
+  box-shadow: none !important;
+}

@@ -6,7 +6,7 @@ import TextQuestion from './TextQuestion'
 import NumberQuestion from './NumberQuestion'
 import BooleanQuestion from './BooleanQuestion'
 import SelectQuestion from './SelectQuestion'
-
+import Footer from '../Footer'
 
 class Survey extends Component {
     constructor(props) {
@@ -15,6 +15,12 @@ class Survey extends Component {
             title: this.props.location.state.title,
             questions: this.props.location.state.questions,
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        
+        event.preventDefault();
     }
 
     handleOnSubmit = e => {
@@ -64,7 +70,7 @@ class Survey extends Component {
         return (
             <div>
                 <Nav history={this.props.history}/>
-                <div className="container p-3">
+                <div className="container p-3 vh-100">
                     <div className="row justify-content-center align-items-center">
                         <div className="col col-sm-12 col-md-9 col-lg-8">
                             <div className="card mt-2">
@@ -76,46 +82,44 @@ class Survey extends Component {
                                 <div className="card-body">
                                     <form onSubmit={this.handleSubmit}>
                                         {this.renderTextQuestion()}
-                                        {this.renderNumberQuestion()}
-                                        {this.renderBooleanQuestion()}
-                                        {this.renderSelectQuestion()}
-                                    </form>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="container">
-                                        <div className="row">
-                                            <div className="col col-sm-12 col-md-4 col-lg-4 align-items-left">
-                                                <button
-                                                    type="submit"
-                                                    value="Submit"
-                                                    className="btn btn-danger"
-                                                    onClick={this.cancel}>
-                                                    Cancelar
-                                                </button>
-                                            </div>
-                                            <div className="col col-sm-12 col-md-4 col-lg-6">
-                                                <button
-                                                    type="submit"
-                                                    value="Submit"
-                                                    className="btn btn-primary float-right"
-                                                    onClick={this.cancel}>
-                                                    Guardar y Salir
-                                                </button>
-                                            </div>
-                                            <div className="col col-sm-12 col-md-4 col-lg-2">
-                                                <button
-                                                    type="submit"
-                                                    value="Submit"
-                                                    className="btn btn-success float-right">
-                                                    <span className="ml-1 mr-1"> Enviar</span>
-                                                </button>
+
+                                        <hr className="mt-4 mb-4"/>
+                                        <div className="container">
+                                            <div className="row">
+                                                <div className="col col-sm-12 col-md-4 col-lg-4 align-items-left">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-danger"
+                                                        onClick={this.cancel}>
+                                                        Cancelar
+                                                    </button>
+                                                </div>
+                                                <div className="col col-sm-12 col-md-4 col-lg-6">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-fundacion float-right"
+                                                        onClick={this.cancel}>
+                                                        Guardar y Salir
+                                                    </button>
+                                                </div>
+                                                <div className="col col-sm-12 col-md-4 col-lg-2">
+                                                    <button
+                                                        type="submit"
+                                                        value="Submit"
+                                                        className="btn btn-outline-fundacion float-right">
+                                                        <span className="ml-1 mr-1"> Enviar</span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div> 
                         </div>
                     </div>
+                </div>
+                <div className="mt-5">
+                    <Footer/>
                 </div>
             </div>
         )

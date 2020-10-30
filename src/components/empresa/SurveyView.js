@@ -23,16 +23,18 @@ class SurveyView extends Component {
     render() {
         const {encuesta} = this.props;
         const cantPreguntas = this.props.encuesta.questions.length;
+        const dbDate = new Date(encuesta.vencimiento);
+        let vencimiento = new Intl.DateTimeFormat('en-GB').format(dbDate);
         return (
             <div>
-                <div className="card mt-2">
+                <div className="card border-info mt-3">
                     <div className="card-body">
-                        <h5 className="card-title">{encuesta.title}</h5>
+                        <h5 className="card-title">{encuesta.title} <small className="float-right text-mused">Vencimiento: {vencimiento}</small></h5>
                         <h6 className="card-subtitle mb-2 text-muted">{cantPreguntas} Pregunta/s</h6>
                         <p className="card-text">{encuesta.description}</p>
                         <button 
                             type="button" 
-                            className="btn btn-outline-primary"
+                            className="btn btn-outline-fundacion"
                             onClick={this.renderView}>
                                 Empezar
                         </button>

@@ -12,6 +12,7 @@ import Profile from './components/empresa/Profile'
 import Dashboard from './components/observatorioPyme/Summary'
 import Lanzamientos from './components/observatorioPyme/Releases'
 import ListadoEmpresas from './components/observatorioPyme/Companies'
+import EmpresaDetalle from './components/observatorioPyme/CompaniDetail'
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/lanzamientos" component={Lanzamientos}/>
         <Route path="/listadoEmpresas" component={ListadoEmpresas}/>
+        <Route path="/empresaDetalle" component={EmpresaDetalle}/>
         <Route exact path="/" render={() => <Redirect to="/login"/>} />
       </Router>
     )

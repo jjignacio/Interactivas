@@ -22,7 +22,7 @@ class MenuObservatorio extends Component {
     }
     render () {
         return (
-            <div>
+            <div className="lateral-menu">
                 <ListItem button>
                     <ListItemIcon>
                         <DashboardIcon />
@@ -41,7 +41,7 @@ class MenuObservatorio extends Component {
                     </ListItemIcon>
                     <ListItemText primary="Empresas" onClick={this.companies}/>
                 </ListItem>
-                <hr></hr>
+                <hr/>
                 <ListItem button>
                     <ListItemText className="text-center" primary="Cerrar sesi&oacute;n" onClick={this.signOff}/>
                 </ListItem>
