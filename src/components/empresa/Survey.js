@@ -28,7 +28,7 @@ class Survey extends Component {
             });
         } else {
             model.id = + new Date();
-            model.title =+ toString(this.state.title)
+            //model.title =+ toString(this.state.title)
             data = this.state.data.slice();
         }
         
@@ -38,8 +38,22 @@ class Survey extends Component {
 
         this.setState({
             data: [model, ...data],
-            current: current2 // todo
+            current: current2, // todo
+            active_view: 'confirmation',
         });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+
+        /*
+        var lanzamiento = this.state.encuesta
+
+        //console.log("lanzamiento", lanzamiento)
+
+        console.log(lanzamiento.map(empresa => empresa))
+
+        console.log("pregunta", pregunta)
 
         const keys = Object.keys(model)
         console.log("adasdas",keys)
@@ -51,7 +65,7 @@ class Survey extends Component {
         })
 
         this.sendQuestions()
-
+        */
     };
 
     sendQuestions = async () => {
@@ -80,7 +94,7 @@ class Survey extends Component {
     }
 
     render() {
-        console.log(this.state.encuesta)
+        //console.log(this.state.encuesta)
         let arrayList = []
         let optionsSelect = []
         let optionsRadio = []
@@ -214,7 +228,7 @@ class Survey extends Component {
                                         <button 
                                             type="button" 
                                             className="btn btn-outline-fundacion" 
-                                            >Enviar
+                                            onClick={this.volver}>Enviar
                                         </button>
                                         <button 
                                             type="button" 

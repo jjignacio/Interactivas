@@ -6,7 +6,8 @@ class DynamicForm extends Component {
     state = {};
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("gds:p:s", nextProps.defaultValues, prevState);
+        //console.log("gds:p:s", nextProps.defaultValues, prevState);
+        console.log("Pregunta / Respuesta", nextProps.defaultValues, prevState);
 
         //let derivedState = {};
 
@@ -22,7 +23,7 @@ class DynamicForm extends Component {
             };
         }
 
-        console.log("no state change");
+        //console.log("no state change");
         return null;
     };
 
