@@ -21,6 +21,8 @@ import "react-sweet-progress/lib/style.css";
 
 // Componentes
 import Menu from "./Menu";
+import Footer from "../Footer";
+import logo_fund from '../../img/logo_fund.png';
 
 export default class Summary extends Component {
 
@@ -36,36 +38,47 @@ export default class Summary extends Component {
             <div>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary vh-100">
-                            <div className="mt-5">
+                        <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary vh-100 border-right">
+                            <div className="mt-4">
                                 <Menu history={this.props.history}/>
                             </div>
                         </div>
                         <div className="col">
-                            <div className="container p-3">
-                                <div className="row justify-content-center">
-                                <TableContainer component={Paper}>
-                                    <Table aria-label="collapsible table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell />
-                                                <TableCell style= {principalColumnsStyle}>Encuesta</TableCell>
-                                                <TableCell style= {principalColumnsStyle}>Fecha lanzamiento</TableCell>
-                                                <TableCell style= {principalColumnsStyle}>Fecha vencimiento</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {rows.map((row) => (
-                                                <Row key={row.name} row={row} />
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                                </div>        
+                            <div className="container">
+                                
+                                <div className="row justify-content-center mt-2">
+                                    <div className="col">
+                                        <nav className="navbar navbar-light w-100">
+                                            <h4>Inicio</h4>
+                                            <img src={logo_fund} width="110px" alt="Fundaci&oacute;n Observatorio Pyme" />
+                                        </nav>
+                                    </div>
+                                </div>
+                                <hr className="mb-4"/>
+                                <div className="mb-5">
+                                    <TableContainer component={Paper}>
+                                        <Table aria-label="collapsible table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell />
+                                                    <TableCell style= {principalColumnsStyle}>Encuesta</TableCell>
+                                                    <TableCell style= {principalColumnsStyle}>Fecha lanzamiento</TableCell>
+                                                    <TableCell style= {principalColumnsStyle}>Fecha vencimiento</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {rows.map((row) => (
+                                                    <Row key={row.name} row={row} />
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         )
     }

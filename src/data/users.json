@@ -1,16 +1,23 @@
 [
     {
         "id": 0,
-        "userName": "Observatorio",
+        "userName": "observatorio_admin",
         "userPass": "admin",
-        "userMail": "test@gmail.com",
-        "userRol": "Observatorio_Admin"
+        "userMail": "observatorio_admin@gmail.com",
+        "userRol": "observatorio_admin"
     },
     {
         "id": 1,
-        "userName": "Empresa",
+        "userName": "empresa",
         "userPass": "admin",
-        "userMail": "test2@gmail.com",
-        "userRol": "Observatorio"
+        "userMail": "empresa@gmail.com",
+        "userRol": "empresa"
+    },
+    {
+        "id": 2,
+        "userName": "observatorio",
+        "userPass": "admin",
+        "userMail": "observatorio@gmail.com",
+        "userRol": "observatorio"
     }
 ]

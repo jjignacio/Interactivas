@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 
 // Componentes
 import Nav from './Nav'
-import TextQuestion from './TextQuestion'
-import NumberQuestion from './NumberQuestion'
-import BooleanQuestion from './BooleanQuestion'
-import SelectQuestion from './SelectQuestion'
 import Footer from '../Footer'
+
+import DynamicForm from './DynamicForm'
 
 class Survey extends Component {
     constructor(props) {
@@ -14,115 +12,119 @@ class Survey extends Component {
         this.state = {
             title: this.props.location.state.title,
             questions: this.props.location.state.questions,
+            data: [{}],
+            current: {}
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
-        
-        event.preventDefault();
-    }
+    onSubmit = model => {
+        let data = [];
+        if (model.id) {
+            data = this.state.data.filter(d => {
+                return d.id !== model.id;
+            });
+        } else {
+            model.id = +new Date();
+            data = this.state.data.slice();
+        }
 
-    handleOnSubmit = e => {
-        e.preventDefault();
-        // pass form data
-        // get it from state
-        const formData = {};
-      };
+        this.setState({
+            data: [model, ...data],
+            current: {} // todo
+        });
+    };
 
-    renderTextQuestion() {
-        // Funcion para crear componentes de preguntas tipo texto.
-        return this.state.questions
-        .filter(pregunta => pregunta.answer_type.localeCompare("text") === 0)
-        .map(pregunta => <TextQuestion pregunta = {pregunta} key={pregunta.id}/>)
 
-    }
-
-    renderNumberQuestion() {
-        // Funcion para crear componentes de preguntas tipo numericas.
-        return this.state.questions
-        .filter(pregunta => pregunta.answer_type.localeCompare("number") === 0)
-        .map(pregunta => <NumberQuestion pregunta = {pregunta.question} key={pregunta.id}/>)
-
-    }
-
-    renderBooleanQuestion() {
-        // Funcion para crear componentes de preguntas tipo Boolean.
-        return this.state.questions
-        .filter(pregunta => pregunta.answer_type.localeCompare("boolean") === 0)
-        .map(pregunta => <BooleanQuestion pregunta = {pregunta} key={pregunta.id}/>)
-
-    }
-
-    renderSelectQuestion() {
-        // Funcion para crear componentes de preguntas tipo multiple choice.
-        return this.state.questions
-        .filter(pregunta => pregunta.answer_type.localeCompare("multiple_choice") === 0 )
-        .map(pregunta => <SelectQuestion pregunta = {pregunta} key={pregunta.id}/>)
-    }
-
-    // Botones
-    cancel = () => {
-        this.props.history.push('/empresa');
-    }
-        
     render() {
+        //console.log(this.state.questions)
+        let arrayList = []
+        let optionsSelect = []
+        let optionsRadio = []
+        let optionsCheckbox = []
+        this.state.questions.forEach(question => {
+
+            // Si es un select mapeo todas las opciones.
+            if(question.answer_type==="select") {
+                question.options.map(option => optionsSelect.push({ key: option, label: option, value: option }))
+            }
+
+            // Si es un radio mapeo todas las opciones.
+            if(question.answer_type==="radio") {
+                question.options.map(option => optionsRadio.push({ key: option, label: option, name: question.question, value: option },))
+            }
+
+            // Si es un checkbox mapeo todas las opciones.
+            if(question.answer_type==="checkbox") {
+                question.options.map(option => optionsCheckbox.push({ key: option, label: option, value: option },))
+            }
+
+            question.answer_type==="text" ? 
+                (arrayList.push({ key: question.question, label: question.question, props: { required: true } }))
+
+            : question.answer_type==="number" ? 
+                (arrayList.push({ key: question.question, label: question.question, type: "number" }))
+
+            : question.answer_type==="select" ? 
+                (   
+                    arrayList.push({ key: question.question, label: question.question, type: "select", value: "Seleccione", options: optionsSelect})
+                )
+            : question.answer_type==="radio" ? 
+                (   
+                    arrayList.push({ key: question.question, label: question.question, type: "radio", options: optionsRadio })
+                )
+
+            : question.answer_type==="checkbox" ? 
+            (   
+                arrayList.push({ key: question.question, label: question.question, type: "checkbox", options: optionsCheckbox })
+            )
+
+            : question.answer_type==="textArea" ? 
+            (   
+                arrayList.push({ key: question.question, label: question.question, type: "textArea" })
+            )
+
+            : arrayList.push({ key: question.question, label: question.question, props: { required: true } })
+            
+            optionsSelect = []
+            optionsRadio = []
+            optionsCheckbox = []
+
+        })
+
         return (
             <div>
                 <Nav history={this.props.history}/>
-                <div className="container p-3 vh-100">
-                    <div className="row justify-content-center align-items-center">
+                <div className="container">
+                    <div className="row justify-content-center mb-5">
+                        <div className="min-height"></div>
                         <div className="col col-sm-12 col-md-9 col-lg-8">
-                            <div className="card mt-2">
+                            <div className="card mt-5">
                                 <div className="card-header">
                                     <div className="mt-2">
                                         <h5 className="card-title">{this.state.title}</h5>
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <form onSubmit={this.handleSubmit}>
-                                        {this.renderTextQuestion()}
+                                    <DynamicForm
+                                        history={this.props.history}
+                                        key={this.state.current.id}
+                                        className="form"
+                                        title="Registration"
+                                        defaultValues={this.state.current}
 
-                                        <hr className="mt-4 mb-4"/>
-                                        <div className="container">
-                                            <div className="row">
-                                                <div className="col col-sm-12 col-md-4 col-lg-4 align-items-left">
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-outline-danger"
-                                                        onClick={this.cancel}>
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                                <div className="col col-sm-12 col-md-4 col-lg-6">
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-outline-fundacion float-right"
-                                                        onClick={this.cancel}>
-                                                        Guardar y Salir
-                                                    </button>
-                                                </div>
-                                                <div className="col col-sm-12 col-md-4 col-lg-2">
-                                                    <button
-                                                        type="submit"
-                                                        value="Submit"
-                                                        className="btn btn-outline-fundacion float-right">
-                                                        <span className="ml-1 mr-1"> Enviar</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        model={arrayList}
+                                        onSubmit={model => {
+                                            this.onSubmit(model);
+                                        }}
+                                    />
                                 </div>
                             </div> 
                         </div>
                     </div>
                 </div>
-                <div className="mt-5">
-                    <Footer/>
-                </div>
+                <Footer/>
             </div>
-        )
+        );
     }
 }
 

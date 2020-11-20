@@ -43,3 +43,43 @@
 .no-box:focus {
   box-shadow: none !important;
 }
+
+.color-observatorio{
+  color: #31aab9 !important;
+}
+
+.icon-profile-size{
+  font-size: 60px !important;
+}
+
+.spinner-observatorio {
+  color: #31aab9 !important; 
+}
+
+.ico-no-companies {
+  font-size: 160px;
+}
+
+.btn-aca {
+  font-size: 12.8px !important;
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  margin-bottom: 2px;
+}
+
+.vl {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.no-padding {
+  padding: 0 0 0 0 !important;
+}
+
+.white {
+  color: white;
+}
+
+.min-height {
+  min-height: 90vh;
+}

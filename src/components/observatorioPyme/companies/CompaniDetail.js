@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 
 // Componentes
-import Menu from "./Menu";
-import Footer from '../Footer'
+import Menu from "../Menu";
+import Footer from '../../Footer'
+
+// Importo llamada a endpoint
+import {UpdateCompany as UpdateCompanyAPI} from "../../controller/CompanyController";
+import {DeleteCompany as DeleteCompanyAPI} from "../../controller/CompanyController";
 
 class Companies extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            active_view: 'form_update_company',
+
             empresa: this.props.location.state.empresa,
+            empresa_id: this.props.location.state.empresa._id,
             razon_social: this.props.location.state.empresa.razon_social,
             cuit: this.props.location.state.empresa.cuit,
             domicilio: this.props.location.state.empresa.domicilio,
@@ -27,38 +34,89 @@ class Companies extends Component {
             showConfirmarEliminado: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.deleteCompany = this.deleteCompany.bind(this);
+        this.handleActiveView = this.handleActiveView.bind(this);
     }
 
-    // Validacion de los datos ingresados por el usuario.
-    handleSubmit(event) {
-        console.log(this.state.razon_social);
-        console.log(this.state.cuit);
-        console.log(this.state.domicilio);
-        console.log(this.state.codigo_postal);
-        console.log(this.state.telefono);
-        console.log(this.state.localidad);
-        console.log(this.state.partido);
-        console.log(this.state.provincia);
-        console.log(this.state.email);
-        console.log(this.state.password);
-        console.log(this.state.password_confirm);
+    // Validacion de los datos ingresados por el usuario y update de datos.
+    handleSubmit = async (event) => {
+        event.preventDefault();
+
+        let mail_valido = false
+        let passwords_validas = false
 
         if(new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test((this.state.email))) {
             this.setState({msj_error_email: ''});
             this.setState({className_email: "form-control is-valid"});
+            mail_valido = true
         } else {
             this.setState({msj_error_email: 'Ingrese un email valido.'});
             this.setState({className_email: "form-control is-invalid"});
+            mail_valido = false
         }
 
         if(this.state.password === this.state.password_confirm) {
             this.setState({msj_error_pass: ''});
             this.setState({className_pass: "form-control is-valid"});
+            passwords_validas = true
         } else {
             this.setState({msj_error_pass: "Las contraseñas ingresadas no coinciden"});
             this.setState({className_pass: "form-control is-invalid"});
+            passwords_validas = false
         }
+
+         if(mail_valido && passwords_validas) {
+
+            let razon_social = this.state.razon_social
+            let cuit = this.state.cuit
+            let domicilio = this.state.domicilio
+            let codigo_postal = this.state.codigo_postal
+            let telefono = this.state.telefono
+            let localidad = this.state.localidad
+            let partido = this.state.partido
+            let provincia = this.state.provincia
+            let email = this.state.email
+            let password = this.state.password
+
+            this.setState({active_view: 'loading'});
+
+            let company_id = this.state.empresa_id
+
+            let updateCompanyFromAPI = await UpdateCompanyAPI(company_id, razon_social, cuit, domicilio, codigo_postal, telefono, localidad, partido, provincia, email, password);
+
+            if(updateCompanyFromAPI.rdo === 0) {
+                this.setState({active_view: 'success'});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+            } else {
+                this.setState({active_view: 'error'});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+            }
+        }
+    }
+
+    // Borra la empresa y direcciona a la vista de emperesas.
+    deleteCompany = async (event) => {
         event.preventDefault();
+
+        let company_id = this.state.empresa_id
+        
+        this.setState({active_view: 'loading'});
+
+        let deleteCompanyFromAPI = await DeleteCompanyAPI(company_id);
+
+        if(deleteCompanyFromAPI.rdo === 0) {
+            this.props.history.push({
+                pathname: '/listadoEmpresas',
+            })
+        } else {
+            this.setState({active_view: 'error'});
+        }
     }
 
     // Maneja los datos ingresados por el usuario.
@@ -67,24 +125,64 @@ class Companies extends Component {
         let val = event.target.value;
         this.setState({[nam]: val});
     }
-    // Cambia la vista para eliminar una empresa.
-    toggleshow = () => {
-        this.setState({showConfirmarEliminado: !this.state.showConfirmarEliminado})
+
+    handleActiveView(e) {
+        const { name } = e.target;
+        this.setState(() => ({
+            active_view: name
+        }));
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
     }
-    // Borra la empresa y direcciona a la vista de emperesas.
-    deleteCompany = () => {
-        this.props.history.push({
-            pathname: '/listadoEmpresas',
-        })
-    }
+
     cancel = () => {
         this.props.history.push({
             pathname: '/listadoEmpresas',
         })
     }
+
     render() {
-        if(!this.state.showConfirmarEliminado) {
-            const empresa = this.state.empresa
+        const active_view = this.state.active_view
+        const empresa = this.state.empresa
+        switch(active_view) {
+        case "loading": 
+            return (
+                <div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary border-right">
+                                <div className="mt-5">
+                                    <Menu history={this.props.history}/>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="container-fluid">
+                                    <div className="row justify-content-center">
+                                        <div className="col col-sm-12 col-md-9 col-lg-10">
+                                            <div className="card mt-5">
+                                                <div className="card-body mt-5 mb-5">
+                                                    <div className="container text-center">
+                                                        <div className="spinner-grow spinner-observatorio" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        <br/>
+                                                        <p className="text-muted mt-3">Cargando...</p>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer/>
+                </div>
+            )
+
+        case "form_update_company":
             return( 
                 <div>
                     <div className="container-fluid">
@@ -104,7 +202,8 @@ class Companies extends Component {
                                                     <button
                                                         type="button"
                                                         className="btn btn-dark float-right"
-                                                        onClick={this.toggleshow}>
+                                                        name="delete_user"
+                                                        onClick={this.handleActiveView}>
                                                         Eliminar
                                                     </button>
                                                 </div>
@@ -140,10 +239,10 @@ class Companies extends Component {
                                                                 <div className="form-group">
                                                                     <label htmlFor="textSurvey">CUIT</label>
                                                                     <input 
-                                                                        type="number" 
+                                                                        type="text" 
                                                                         className="form-control"
                                                                         autoComplete="off"  
-                                                                        placeholder="CUIT (Sin guiones)" 
+                                                                        placeholder="CUIT" 
                                                                         required 
                                                                         name="cuit"
                                                                         value={this.state.cuit}
@@ -233,7 +332,6 @@ class Companies extends Component {
                                                                         value={this.state.provincia}
                                                                         onChange={this.myChangeHandler} >
                                                                     <option defaultValue disabled value="">Seleccion&aacute; una provincia ...</option>
-                                                                    <option value="CABA">CABA</option>
                                                                     <option value="Buenos Aires">Buenos Aires</option>
                                                                     <option value="Catamarca">Catamarca</option>
                                                                     <option value="Chaco">Chaco</option>
@@ -339,7 +437,7 @@ class Companies extends Component {
                     <Footer/>
                 </div>
             )
-        } else {
+        case "delete_user":
             return(
                 <div>
                     <div className="container-fluid">
@@ -368,10 +466,116 @@ class Companies extends Component {
                                                     <button 
                                                         type="button" 
                                                         className="btn btn-link" 
-                                                        onClick={this.toggleshow}>Cancelar
+                                                        name="form_update_company"
+                                                        onClick={this.handleActiveView}>Cancelar
                                                     </button>
 
                                                     <div className="mb-3"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer/>
+                </div>
+            )
+        case "success":
+            return(
+                <div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary border-right">
+                                <div className="mt-5">
+                                    <Menu history={this.props.history}/>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="container-fluid">
+                                    <div className="row justify-content-center">
+                                        <div className="col col-sm-12 col-md-9 col-lg-10">
+                                            <div className="card mt-5">
+                                                <div className="card-body text-center">
+                                                    <div className="mt-4"></div>
+                                                    <i className="material-icons ico-no-companies color-observatorio">check_circle</i>
+                                                    <br/>
+                                                    <h2>Datos de la empresa actualizados.</h2>
+                                                    <small className="text-muted">Podes verla 
+                                                        <button 
+                                                            type="button" 
+                                                            className="btn btn-link text-reset btn-aca  " 
+                                                            onClick={this.cancel}>acá.
+                                                        </button>
+                                                    </small>
+                                                    <div className="mb-5"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer/>
+                </div>
+            )
+        case "error":
+            return(
+                <div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary border-right">
+                                <div className="mt-5">
+                                    <Menu history={this.props.history}/>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="container-fluid">
+                                    <div className="row justify-content-center">
+                                        <div className="col col-sm-12 col-md-9 col-lg-10">
+                                            <div className="card mt-5">
+                                                <div className="card-body text-center">
+                                                    <div className="mt-4"></div>
+                                                    <i className="material-icons ico-no-companies">error</i>
+                                                    <br/>
+                                                    <h2>Algo salió mal.</h2>
+                                                    <small className="text-muted">Por favor salga y vuelva a intentarlo.</small>
+                                                    <div className="mb-5"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer/>
+                </div>
+            )
+        default:
+            return(
+                <div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col col-sm-12 col-md-4 col-lg-2 bg-light text-secondary border-right">
+                                <div className="mt-5">
+                                    <Menu history={this.props.history}/>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="container-fluid">
+                                    <div className="row justify-content-center">
+                                        <div className="col col-sm-12 col-md-9 col-lg-10">
+                                            <div className="card mt-5">
+                                                <div className="card-body text-center">
+                                                    <div className="mt-4"></div>
+                                                    <i className="material-icons ico-no-companies">error</i>
+                                                    <br/>
+                                                    <h2>Algo salió mal.</h2>
+                                                    <small className="text-muted">Por favor salga y vuelva a intentarlo.</small>
+                                                    <div className="mb-5"></div>
                                                 </div>
                                             </div>
                                         </div>

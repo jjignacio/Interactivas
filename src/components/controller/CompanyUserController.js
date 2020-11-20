@@ -1,0 +1,38 @@
+import urlWebServices from '../controller/WebServices.js';
+
+export const GetAllSurveys = async () => {
+    //url webservices
+    let URL_API = urlWebServices.getAllSurveys;
+
+    try {
+        const response = await fetch('http://' + URL_API, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const data = await response.json();
+        let rdo = response.status;
+
+        console.log(data)
+
+        switch(rdo) {
+            case 200: {
+                return ({rdo:0, mensaje:"Ok", data}); // Correcto
+            }
+            case 401: {
+                // Usuario invalido
+                return ({rdo:1, mensaje:"No se pudo recuperar la lista de encuestas."});
+            }
+            default: {
+                // Otro error
+                return ({rdo:1, mensaje:"Ha ocurrido un error"});                
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+    };
+}

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import users from '../data/users.json';
 
+// Importo llamada a endpoint
+import {Login as LoginAPI} from "./controller/LoginController";
+
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -10,12 +13,60 @@ class LoginForm extends Component {
             user_pass: '',
             users: users,
             msj_error: false,
+            usuarioValido: false,
             className: 'form-control',
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    // Validacion de usuario segun el rol del mismo.
+    handleSubmit = async (event) =>{
+        event.preventDefault();
+        
+        // Ejecuto el endopoint para validar login
+        let getLogin = await LoginAPI(this.state.user_name, this.state.user_pass);
 
+        if(getLogin.rdo === 0 ) {
+            this.setState({usuarioValido: true});
+            this.redirect();
+        } else {
+            if(this.state.msj_error === false) {
+                this.setState({msj_error: !this.state.msj_error})
+                this.setState({className: "form-control is-invalid"});
+            }
+        }
+    }
+
+    // Si el usuario es valido, redirecciono. Si no, mensaje de error.
+    redirect = () => {
+        const userRol = localStorage.getItem('rol');
+
+        switch(userRol) {
+            case "Observatorio":
+                this.props.history.push({
+                    pathname: '/dashboard',
+                })
+                break;
+            case "Observatorio_Admin":
+                this.props.history.push({
+                    pathname: '/dashboard',
+                })
+                break;
+            case "Empresa":
+                this.props.history.push({
+                    pathname: '/empresa',
+                })
+                break;
+            default:
+                this.setState({msj_error: !this.state.msj_error})
+                this.setState({className: "form-control is-invalid"})
+                break;
+        }
+
+    }
+    
+    /*
     handleSubmit(event) {
         let user_name = this.state.user_name;
         let user_pass = this.state.user_pass;
@@ -29,13 +80,16 @@ class LoginForm extends Component {
         while(i < userName.length) {
             if(userName[i].localeCompare(user_name) === 0 && userPass[i].localeCompare(user_pass) === 0) {
                 usuarioValido = true;
+                userName = user_name[i]
                 userRol = userRol[i];
                 break;
             }
             i++;
         }
         if(usuarioValido === true) {
-            if(userRol === "Observatorio_Admin") {
+            localStorage.setItem("rol",userRol);
+            localStorage.setItem("name",userRol);
+            if(userRol === "observatorio_admin" || userRol === "observatorio") {
                 this.props.history.push('/dashboard');
             } else {
                 this.props.history.push('/empresa');
@@ -50,6 +104,7 @@ class LoginForm extends Component {
 
         event.preventDefault();
     }
+    */
 
     myChangeHandler = (event) => {
         let nam = event.target.name;
