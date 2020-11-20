@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class DynamicForm extends Component {
 
+
     state = {};
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -23,7 +24,8 @@ class DynamicForm extends Component {
 
         console.log("no state change");
         return null;
-    }
+    };
+
 
     onSubmit = e => {
         e.preventDefault();

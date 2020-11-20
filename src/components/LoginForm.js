@@ -30,6 +30,7 @@ class LoginForm extends Component {
         if(getLogin.rdo === 0 ) {
             this.setState({usuarioValido: true});
             this.redirect();
+            console.log(localStorage.getItem('token'))
         } else {
             if(this.state.msj_error === false) {
                 this.setState({msj_error: !this.state.msj_error})

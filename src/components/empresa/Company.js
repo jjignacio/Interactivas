@@ -9,7 +9,7 @@ import Footer from '../Footer'
 import encuestas from '../../data/encuestasModelo.json'
 
 // Importo llamada a endpoint
-//import {GetAllSurveys as GetAllSurveysAPI} from "../controller/CompanyUserController";
+import {GetAllSurveys as GetAllSurveysAPI} from "../controller/CompanyUserController";
 
 class Company extends Component {
     // Lista las encuestas disponibles.
@@ -18,11 +18,12 @@ class Company extends Component {
         this.state = {
             active_view: "listSurveys",
             encuestas: encuestas,
+            empresa_id: localStorage.getItem('_id'),
             text: '',
         };
         this.handleActiveView = this.handleActiveView.bind(this);
     }
-    /*
+    
     componentDidMount() {
         this.getSurveys();
     }
@@ -32,7 +33,9 @@ class Company extends Component {
         
         this.setState({active_view: 'loading'});
 
-        let getAllSurveysFromAPI = await GetAllSurveysAPI();
+        let empresa_id = this.state.empresa_id
+
+        let getAllSurveysFromAPI = await GetAllSurveysAPI(empresa_id);
 
         if(getAllSurveysFromAPI.rdo === 0) {
             this.setState({
@@ -43,7 +46,7 @@ class Company extends Component {
             this.setState({active_view: 'error'});
         }
     }
-*/
+
     handleActiveView(e) {
         const { name } = e.target;
         this.setState(() => ({
@@ -64,7 +67,7 @@ class Company extends Component {
 
     render() {
         const active_view = this.state.active_view
-        console.log(this.state.encuestas)
+        console.log(this.state.empresa_id)
         switch(active_view) {
         case "loading": 
             return (
@@ -145,8 +148,8 @@ class Company extends Component {
                                 { this.state.encuestas.length > 0 ? ( 
 
                                     this.state.encuestas
-                                    .filter(encuesta => encuesta.title.toLowerCase().includes(this.state.text.toLowerCase()))
-                                    .map(encuesta => <SurveyView encuesta = {encuesta} key={encuesta.id} history={this.props.history}/>) 
+                                    .filter(encuesta => encuesta.encuesta.title.toLowerCase().includes(this.state.text.toLowerCase()))
+                                    .map(encuesta => <SurveyView encuesta = {encuesta} vencimiento = {encuesta.fecha_vencimiento} key={encuesta._id} history={this.props.history}/>) 
 
                                     ) : (
 

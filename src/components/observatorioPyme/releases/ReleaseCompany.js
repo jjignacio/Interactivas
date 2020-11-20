@@ -37,7 +37,7 @@ class ReleaseCompany extends Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         
-        let encuesta_id = this.state.encuesta.id
+        let encuesta_id = this.state.encuesta.encuesta_modelo_id
         let empresas_array = [];
         let expiration_date = this.state.expiration_date
         let title_release = this.state.title_release
@@ -141,8 +141,8 @@ class ReleaseCompany extends Component {
             )
         case "lanzamiento":
             const encuesta = this.state.encuesta;
-            const target = '#collapse'+encuesta.id.toString();
-            const targetDestination = 'collapse'+encuesta.id.toString();
+            const target = '#collapse'+encuesta.encuesta_modelo_id.toString();
+            const targetDestination = 'collapse'+encuesta.encuesta_modelo_id.toString();
             return (
                 <div>
                     <div className="accordion" id="accordionCompany">

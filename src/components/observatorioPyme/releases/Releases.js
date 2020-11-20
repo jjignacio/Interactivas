@@ -6,17 +6,16 @@ import ReleaseCompany from "./ReleaseCompany"
 import Footer from "../../Footer";
 
 // Importo llamada a endpoint
-import {GetAllCompanies as GetAllCompaniesAPI} from "../../controller/CompanyController";
-
-// Datos
-import encuestas from '../../../data/encuestasModelo.json'
+import {GetAllCompanies as GetAllCompaniesAPI} from "../../controller/ReleasesController";
+// Importo llamada a endpoint
+import {GetAllSurveys as GetAllSurveysAPI} from "../../controller/ReleasesController";
 
 class Releases extends Component {
     constructor(props) {
         super(props);
         this.state = {
             active_view: "listReleases",
-            encuestas: encuestas,
+            encuestas: [],
             empresas: [],
             text_search: ''
         };
@@ -35,13 +34,22 @@ class Releases extends Component {
         let getAllCompaniesFromAPI = await GetAllCompaniesAPI();
 
         if(getAllCompaniesFromAPI.rdo === 0) {
-            this.setState({
-                empresas: getAllCompaniesFromAPI.data.data,
-            })
-            this.setState({active_view: 'listReleases'});
+            
+            let getAllSurveysFromAPI = await GetAllSurveysAPI();
+            
+            if(getAllSurveysFromAPI.rdo === 0) {
+                this.setState({
+                    empresas: getAllCompaniesFromAPI.data.data,
+                    encuestas: getAllSurveysFromAPI.data.data,
+                    active_view: 'listReleases'
+                })
+            } else {
+                this.setState({active_view: 'error'});
+            }
         } else {
             this.setState({active_view: 'error'});
-        }
+        }  
+        
     }
     
     filter(event){
@@ -166,7 +174,7 @@ class Releases extends Component {
 
                                                 this.state.encuestas
                                                 .filter(encuesta => encuesta.title.toLowerCase().includes(this.state.text_search.toLowerCase()))
-                                                .map(encuesta => <ReleaseCompany empresas = {this.state.empresas} encuesta = {encuesta} key={encuesta.id} history={this.props.history}/>)
+                                                .map(encuesta => <ReleaseCompany empresas = {this.state.empresas} encuesta = {encuesta} key={encuesta.encuesta_modelo_id} history={this.props.history}/>)
 
                                                 ) : (
 

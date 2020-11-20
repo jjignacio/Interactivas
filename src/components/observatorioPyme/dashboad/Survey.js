@@ -68,7 +68,7 @@ class Survey extends Component {
 
                             { this.state.empresas.length > 0 ? ( 
                                 this.state.empresas
-                                .map(empresa => <CompanySurvey empresa = {empresa} key={empresa.empresa_user_id} history={this.props.history}/>)) : null 
+                                .map(empresa => <CompanySurvey lanzamiento_id = {this.state.lanzamiento._id} empresa = {empresa} key={empresa.empresa_user_id} history={this.props.history}/>)) : null 
                             }
 
                             </div>

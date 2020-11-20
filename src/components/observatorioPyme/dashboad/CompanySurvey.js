@@ -3,7 +3,7 @@ import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css"; 
 
 // Importo llamada a endpoint
-import {DeleteCompany as DeleteCompanyAPI} from "../../controller/CompanyController";
+import {DeleteCompanyFromReleace as DeleteCompanyFromReleaceAPI} from "../../controller/ReleasesController";
 
 function buildStatus(status) {
     return <Progress type="circle" percent={status} width={50} />
@@ -14,6 +14,8 @@ class CompanySurvey extends Component {
         super(props);
         this.state = {
             empresa: this.props.empresa,
+            empresa_id: this.props.empresa.empresa_user_id,
+            releace_id: this.props.lanzamiento_id,
             active_view: 'company'
 
         };
@@ -21,20 +23,21 @@ class CompanySurvey extends Component {
         this.handleActiveView = this.handleActiveView.bind(this);
     }
 
-    // Borra la empresa y direcciona a la vista de emperesas.
+    // Borra la empresa del lanzamiento.
     deleteCompany = async (event) => {
         event.preventDefault();
 
         let company_id = this.state.empresa_id
+        let releace_id = this.state.releace_id
+
+        console.log(company_id)
         
         this.setState({active_view: 'loading'});
 
-        let deleteCompanyFromAPI = await DeleteCompanyAPI(company_id);
+        let deleteCompanyFromReleaceFromAPI = await DeleteCompanyFromReleaceAPI(releace_id, company_id);
 
-        if(deleteCompanyFromAPI.rdo === 0) {
-            this.props.history.push({
-                pathname: '/listadoEmpresas',
-            })
+        if(deleteCompanyFromReleaceFromAPI.rdo === 0) {
+            this.setState({active_view: 'success'});
         } else {
             this.setState({active_view: 'error'});
         }
@@ -56,7 +59,7 @@ class CompanySurvey extends Component {
 
     render() {
         let active_view = this.state.active_view
-        console.log(active_view)
+        console.log(this.state.empresa)
         switch(active_view) {
         case "loading": 
             return (
@@ -112,9 +115,8 @@ class CompanySurvey extends Component {
                             <h5>Seguro que quieres cancelar el envío a nombre_empresa?</h5>
                             <button 
                                 className="btn btn-outline-danger" 
-                                name="success"
                                 type="button"
-                                onClick={this.handleActiveView}>s
+                                onClick={this.deleteCompany}>
                                     Cancelar envio
                             </button>
                             <button 
@@ -133,7 +135,7 @@ class CompanySurvey extends Component {
                 <div>
                     <div className="card border-success">
                         <div className="card-body">
-                            <h5>Lanzamiento cancelado.</h5>
+                            <h5>Empresa removida.</h5>
                         </div>
                     </div>
                 </div>

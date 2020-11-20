@@ -2,17 +2,47 @@ import React, { Component } from 'react';
 
 import Login from './Login'
 
+// Importo llamada a endpoint
+import {RecoverPassword as RecoverPasswordAPI} from "./controller/LoginController";
+
 class LoginReset extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             show: true,
+            user_name: '',
+            className: 'form-control',
+            text: false
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     toggleshow = () => {
         this.setState({show: !this.state.show})
+    }
+
+    // Validacion de usuario segun el rol del mismo.
+    handleSubmit = async (event) =>{
+        event.preventDefault();
+        
+        // Ejecuto el endopoint para validar login
+        let getRecoverPassword = await RecoverPasswordAPI(this.state.user_name);
+
+        if(getRecoverPassword.rdo === 0 ) {
+            this.setState({
+                className: "form-control is-valid",
+                text: true
+            });
+        } else {
+            this.setState({className: "form-control is-invalid"});
+        }
+    }
+    
+    myChangeHandler = (event) => {
+        let nam = event.target.name;
+        let val = event.target.value;
+        this.setState({[nam]: val});
     }
 
     render() {
@@ -30,13 +60,16 @@ class LoginReset extends Component {
                                         id="user_name" 
                                         type="text" 
                                         name="user_name" 
-                                        className="form-control" 
+                                        className={this.state.className} 
                                         autoComplete="off" 
                                         autoFocus={true} 
+                                        onChange={this.myChangeHandler}
+                                        value={this.state.user_name}
                                         placeholder="Correo electr&oacute;nico" 
                                         required />
                                 </div>
                             </div>
+                            { this.state.text ? ( <small className="text-success">Revisa tu casilla de mails</small> ) : null }
                         </div>
                             
                         <div className="row p-3 justify-content-center">

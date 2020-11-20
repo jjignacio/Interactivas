@@ -1,124 +1,40 @@
 [
     {
-        "id": "E2",
-        "title": "Encuesta Satisfacción del cliente",
-        "description": "La satisfacción del cliente es un término que se utiliza con frecuencia en marketing. Es una medida de cómo los productos y servicios suministrados por una empresa cumplen o superan las expectativas del cliente.",
-        "vencimiento": "2020/11/22",
-        "questions": [
-            {
-                "id": "P1",
-                "question": "Indique su nombre y apellido",
-                "answer_type": "text"
-            },
-            {
-                "id": "P2",
-                "dependency_id": "P1",
-                "question": "Indique su edad",
-                "answer_type": "number"
-            },
-            {
-                "id": "P3",
-                "dependency_id": "P2",
-                "question": "¿Es usted casado?",
-                "answer_type": "radio",
-                "options": [
-                    "masculino",
-                    "femenino"
-                ]
+        "_id": "",
+        "empresa_user_id": "",
+        "razon_social": "",
+        "fecha_vencimiento": "",
+        "progreso": 0,
+        "encuesta": {
+            "encuesta_modelo_id": "E2",
+            "title": "Encuesta Satisfacción del cliente",
+            "description": "La satisfacción del cliente es un término que se utiliza con frecuencia en marketing. Es una medida de cómo los productos y servicios suministrados por una empresa cumplen o superan las expectativas del cliente.",
+            "questions": [
+                {
+                    "id": "P1",
+                    "question": "Indique su nombre y apellido",
+                    "answer_type": "text",
+                    "answer": ""
+                },
+                {
+                    "id": "P2",
+                    "dependency_id": "P1",
+                    "question": "Indique su edad",
+                    "answer_type": "number",
+                    "answer": ""
+                },
+                {
+                    "id": "P3",
+                    "dependency_id": "P2",
+                    "question": "¿Es usted casado?",
+                    "answer_type": "radio",
+                    "answer": "",
+                    "options": [
+                        "Si",
+                        "No"
+                    ]
+                }
+            ]
             }
-        ]
-    },
-    {
-        "id": "E1",
-        "title": "Encuesta Compromiso Organizacional",
-        "description": "Compromiso organizacional es el grado en que un empleado se identifica con una organización en particular y las metas de ésta, y desea mantener su relación con ella.",
-        "vencimiento": "2020/12/22",
-        "questions": [
-            {
-                "id": "P1",
-                "question": "Indique su nombre y apellido",
-                "answer_type": "text"
-            },
-            {
-                "id": "P2",
-                "dependency_id": "P1",
-                "question": "Indique su edad",
-                "answer_type": "number"
-            },
-            {
-                "id": "P3",
-                "dependency_id": "P2",
-                "question": "¿Es usted casado?",
-                "answer_type": "text"
-            },
-            {
-                "id": "P4",
-                "dependency_id": "P3",
-                "question": "Sexo",
-                "answer_type": "radio",
-                "only_one_selection": true,
-                "options": [
-                    "masculino",
-                    "femenino"
-                ]
-            },
-            {
-                "id": "P5",
-                "dependency_id": "P3",
-                "question": "Paga ganancias?",
-                "answer_type": "radio",
-                "only_one_selection": true,
-                "options": [
-                    "Si",
-                    "No"
-                ]
-            },
-            {
-                "id": "P6",
-                "dependency_id": "P4",
-                "question": "Aptitudes",
-                "answer_type": "select",
-                "only_one_selection": false,
-                "options": [
-                    "Developer Frontend",
-                    "Developer Backend",
-                    "Infraestructura"
-                ]
-            },
-            {
-                "id": "P7",
-                "dependency_id": "P4",
-                "question": "Areas de interes",
-                "answer_type": "checkbox",
-                "only_one_selection": false,
-                "options": [
-                    "Developer Frontend",
-                    "Developer Backend",
-                    "Infraestructura",
-                    "Seguridad",
-                    "DevOPS"
-                ]
-            },
-            {
-                "id": "P8",
-                "dependency_id": "P4",
-                "question": "Roles",
-                "answer_type": "checkbox",
-                "only_one_selection": false,
-                "options": [
-                    "Project Lider",
-                    "project manager",
-                    "Desarrollador",
-                    "Analista funcional",
-                    "Analista tecnico",
-                    "Team leader"
-                ]
-            },
-            {
-                "id": "P9",
-                "question": "Comentarios",
-                "answer_type": "textArea"
-            }
-        ]
     }
 ]

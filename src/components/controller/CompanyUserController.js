@@ -1,11 +1,11 @@
 import urlWebServices from '../controller/WebServices.js';
 
-export const GetAllSurveys = async () => {
+export const GetAllSurveys = async (company_id) => {
     //url webservices
-    let URL_API = urlWebServices.getAllSurveys;
+    let URL_API = urlWebServices.getCompanySurveys;
 
     try {
-        const response = await fetch('http://' + URL_API, {
+        const response = await fetch('http://' + URL_API + '/' + company_id, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

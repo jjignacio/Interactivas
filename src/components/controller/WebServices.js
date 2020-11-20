@@ -3,6 +3,7 @@ const URL_API = "encuestas-app.herokuapp.com";
 
 const urlWebServices = {
     getAllCompanies: `${URL_API}​/empresa_user`,
+    getCompany: `${URL_API}​/empresa_user`,
     createCompany: `${URL_API}​/empresa_user`,
     updateCompany: `${URL_API}​/empresa_user`,
     deleteCompany: `${URL_API}​/empresa_user`,
@@ -16,8 +17,12 @@ const urlWebServices = {
 
     getRelease: `${URL_API}​/lanzamiento`,
     createRelease: `${URL_API}​/lanzamiento`,
+    deleteRelease: `${URL_API}​/lanzamiento`,
 
-    login: `${URL_API}/login`
+    getCompanySurveys: `${URL_API}​/encuesta_empresa_user`,
+
+    login: `${URL_API}/login`,
+    recoverPassword: `${URL_API}/empresa_user/recupero_password`
 }
 
 export default urlWebServices;

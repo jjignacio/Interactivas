@@ -4,10 +4,16 @@ import React, { Component } from 'react';
 import Nav from './Nav'
 import Footer from '../Footer'
 
+// Importo llamada a endpoint
+import {GetCompany as GetCompanyAPI} from "../controller/CompanyController";
+
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            company_id: localStorage.getItem('_id'),
+            empresa: [],
+
             active_view: 'profile',
             
             current_password: 'admin',
@@ -24,6 +30,28 @@ class Profile extends Component {
         this.handleActiveView = this.handleActiveView.bind(this);
         this.goBack = this.goBack.bind(this);
         };
+
+    componentDidMount() {
+        this.getCompany();
+    }
+
+    getCompany = async () => {
+        
+        this.setState({active_view: 'loading'});
+
+        let company_id = this.state.company_id
+
+        let getCompanyAPIFromAPI = await GetCompanyAPI(company_id);
+
+        if(getCompanyAPIFromAPI.rdo === 0) {
+            this.setState({
+                empresa: getCompanyAPIFromAPI.data.data,
+            })
+            this.setState({active_view: 'profile'});
+        } else {
+            this.setState({active_view: 'error'});
+        }
+    }
 
     // Validacion de los datos ingresados por el usuario.
     handleSubmit = async (event) =>{
@@ -98,6 +126,8 @@ class Profile extends Component {
 
     render() {
         const active_view = this.state.active_view
+        const empresa = this.state.empresa
+        //console.log(this.state.company_id)
         switch(active_view) {
         case "loading": 
             return (
@@ -149,9 +179,9 @@ class Profile extends Component {
                                                         <i className="fas fa-user-circle user-icon-size"></i>
                                                     </div>
                                                     <div className="col-sm-10 col-md-7 col-lg-7">
-                                                        <h5 className="card-title">Grupo INSUD</h5>
-                                                        <h6 className="card-subtitle mb-2 text-muted">Cuit: 4301231232</h6>
-                                                        <h6>grupoinsud@gmail.com</h6>
+                                                        <h5 className="card-title">{empresa.razon_social}</h5>
+                                                        <h6 className="card-subtitle mb-2 text-muted">Cuit: {empresa.cuit}</h6>
+                                                        <h6>{empresa.email}</h6>
                                                     </div>
                                                     <div className="col-sm-10 col-md-3 col-lg-3">
                                                         <button 
@@ -174,15 +204,15 @@ class Profile extends Component {
                                                         <ul>
                                                             <li>
                                                                 Domicilio:
-                                                                <span className="font-weight-light"> Chile 1310 </span> 
+                                                                <span className="font-weight-light"> {empresa.domicilio} </span> 
                                                             </li>
                                                             <li className="mt-3">
                                                                 Localidad: 
-                                                                <span className="font-weight-light"> San Fernando </span>
+                                                                <span className="font-weight-light"> {empresa.localidad} </span>
                                                             </li>
                                                             <li className="mt-3">
                                                                 Partido:
-                                                                <span className="font-weight-light"> Tigre </span>
+                                                                <span className="font-weight-light"> {empresa.partido} </span>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -190,15 +220,15 @@ class Profile extends Component {
                                                         <ul>
                                                             <li>
                                                                 Provincia:
-                                                                <span className="font-weight-light"> Buenos Aires </span>
+                                                                <span className="font-weight-light"> {empresa.provincia} </span>
                                                             </li>
                                                             <li className="mt-3">
                                                                 Codigo Postal: 
-                                                                <span className="font-weight-light"> 1661 </span> 
+                                                                <span className="font-weight-light"> {empresa.codigo_postal} </span> 
                                                             </li>
                                                             <li className="mt-3">
                                                                 Telefono de contacto: 
-                                                                <span className="font-weight-light"> 1123456787 </span>
+                                                                <span className="font-weight-light"> {empresa.telefono} </span>
                                                             </li>
                                                         </ul>
                                                     </div>

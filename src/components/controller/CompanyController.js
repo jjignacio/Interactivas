@@ -173,3 +173,40 @@ export const DeleteCompany = async (company_id) => {
         console.log(error);
     };
 }
+
+export const GetCompany = async (company_id) => {
+    //url webservices
+    let URL_API = urlWebServices.getCompany;
+
+    try {
+        const response = await fetch('http://' + URL_API + '/' + company_id, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const data = await response.json();
+        let rdo = response.status;
+
+        console.log(data)
+
+        switch(rdo) {
+            case 200: {
+                return ({rdo:0, mensaje:"Ok", data}); // Correcto
+            }
+            case 401: {
+                // Usuario invalido
+                return ({rdo:1, mensaje:"No se pudo recuperar la lista de empresas."});
+            }
+            default: {
+                // Otro error
+                return ({rdo:1, mensaje:"Ha ocurrido un error"});                
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+    };
+}
