@@ -22,7 +22,9 @@ const urlWebServices = {
     getCompanySurveys: `${URL_API}​/encuesta_empresa_user`,
 
     login: `${URL_API}/login`,
-    recoverPassword: `${URL_API}/empresa_user/recupero_password`
+    recoverPassword: `${URL_API}/empresa_user/recupero_password`,
+
+    submitSurvey: `${URL_API}/encuesta_empresa_user`
 }
 
 export default urlWebServices;

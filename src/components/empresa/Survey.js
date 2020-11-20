@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 // Componentes
 import Nav from './Nav'
 import Footer from '../Footer'
-
 import DynamicForm from './DynamicForm'
+
+// Importo llamada a endpoint
+import {SubmitSurvey as SubmitSurveyAPI} from "../controller/CompanyUserController";
 
 class Survey extends Component {
     constructor(props) {
@@ -46,30 +48,41 @@ class Survey extends Component {
             behavior: 'smooth',
         });
 
-        /*
         var lanzamiento = this.state.encuesta
-
-        //console.log("lanzamiento", lanzamiento)
-
-        console.log(lanzamiento.map(empresa => empresa))
-
-        console.log("pregunta", pregunta)
-
         const keys = Object.keys(model)
-        console.log("adasdas",keys)
-        
-        keys.forEach(function(value, key) {
-            if(value) {
-                console.log("modelo %o",key)
+        var values = Object.values(model);
+        keys.forEach(key => {
+            for(var i = 0; i < lanzamiento.encuesta.questions.length; i++) {
+                var question = lanzamiento.encuesta.questions[i];
+                if(question.question == key) {
+                    lanzamiento.encuesta.questions[i].answer = values[i]
+                }
             }
         })
+        
+        this.setState({
+            encuesta: lanzamiento,
+        });
 
-        this.sendQuestions()
-        */
     };
 
     sendQuestions = async () => {
-        console.log(this.state.current)
+
+        var lanzamiento = this.state.encuesta
+
+        this.setState({active_view: 'loading'});
+
+        let submitSurveyToAPI = await SubmitSurveyAPI(lanzamiento);
+
+        if(submitSurveyToAPI.rdo === 0) {
+            this.setState({
+                active_view: 'success',
+            });
+        } else {
+            this.setState({active_view: 'error'});
+        }
+
+        console.log(lanzamiento)
     }
 
     volver = () => {
@@ -228,7 +241,7 @@ class Survey extends Component {
                                         <button 
                                             type="button" 
                                             className="btn btn-outline-fundacion" 
-                                            onClick={this.volver}>Enviar
+                                            onClick={this.sendQuestions}>Enviar
                                         </button>
                                         <button 
                                             type="button" 
