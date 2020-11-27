@@ -113,7 +113,7 @@ class CompanySurvey extends Component {
                 <div> 
                     <div className="card border-info">
                         <div className="card-body">
-                            <h5>Seguro que quieres cancelar el envío a nombre_empresa?</h5>
+                            <h5>Seguro que quieres cancelar el envío a {this.state.empresa.razon_social}</h5>
                             <button 
                                 className="btn btn-outline-danger" 
                                 type="button"

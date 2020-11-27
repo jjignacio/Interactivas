@@ -28,6 +28,7 @@ class Dashboard extends Component {
             title_release: this.props.location.state.lanzamiento.nombre,
             expiration_date: this.props.location.state.lanzamiento.fecha_vencimiento,
             expiration_date_format: "",
+            cant_empresas: ""
 
         };
         this.handleActiveView = this.handleActiveView.bind(this);
@@ -54,6 +55,7 @@ class Dashboard extends Component {
         if(getAllCompaniesFromAPI.rdo === 0) {
             this.setState({
                 empresas: getAllCompaniesFromAPI.data.data,
+                cant_empresas: getAllCompaniesFromAPI.data.data.length,
                 active_view: 'addCompany'
             })
             this.removeCompanies()
@@ -67,6 +69,7 @@ class Dashboard extends Component {
         let empresas_lanzamiento = this.state.empresas_lanzamiento
         let empresas = this.state.empresas
 
+        /*
         empresas.map(empresa => { 
             empresas_lanzamiento.map(empresa_lanzamiento => {
                 if(empresa_lanzamiento.razon_social === empresa.razon_social) {
@@ -74,9 +77,24 @@ class Dashboard extends Component {
                     empresas.splice(indice, 1); // 1 es la cantidad de elemento a eliminar
                 }
             })
-        })
+        })*/
 
-        this.setState({empresas: empresas});
+        for(var i=0; i<empresas_lanzamiento.length; i++){
+            for(var j=0; j<empresas.length; j++){
+                if(empresas_lanzamiento[i].razon_social === empresas[j].razon_social) {
+                    var indice = empresas.indexOf(empresas[j]); // obtenemos el indice
+                    if ( indice !== -1 ) {
+                        empresas.splice(indice, 1); // 1 es la cantidad de elemento a eliminar
+                    }
+                    
+                }
+            }
+        }
+        console.log(empresas)
+        this.setState({
+            empresas: empresas,
+            cant_empresas: empresas.length
+        });
     }
 
     handleSubmit = async (event) => {
@@ -140,7 +158,7 @@ class Dashboard extends Component {
 
     render() {
         const active_view = this.state.active_view
-        console.log(this.state.lanzamiento)
+        //console.log(this.state.lanzamiento)
 
         switch(active_view) {
         case "loading": 
@@ -245,7 +263,7 @@ class Dashboard extends Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        { this.state.empresas.lenght === 0 ? ( <span>No existen empresas disponibles para esta encuesta.</span> ) :  
+                                                        { this.state.cant_empresas === 0 ? ( <span>No existen empresas disponibles para esta encuesta.</span> ) :  
                                                             <form>
                                                                 <div className="row mb-2">
                                                                     <div className="col-12">

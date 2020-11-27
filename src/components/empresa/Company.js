@@ -66,8 +66,17 @@ class Company extends Component {
     }
 
     render() {
+        // Verifico la cantidad de encuentas completas
+        var cont = 0
+        var encuestas= this.state.encuestas
+        for(var i=0; i<encuestas.length; i++){
+            if(encuestas[i].progreso === 100) {
+                cont= cont+1
+            }
+        }
+
         const active_view = this.state.active_view
-        //console.log(this.state.empresa_id)
+        //console.log(this.state.encuestas)
         switch(active_view) {
         case "loading": 
             return (
@@ -145,7 +154,7 @@ class Company extends Component {
                             <div className="min-height"></div>
                             <div className="col col-sm-12 col-md-7 col-lg-7 ">
 
-                                { this.state.encuestas.length > 0 ? ( 
+                                { this.state.encuestas.length > 0 && cont != this.state.encuestas.length ? ( 
 
                                     this.state.encuestas
                                     .filter(encuesta => encuesta.encuesta.title.toLowerCase().includes(this.state.text.toLowerCase()))

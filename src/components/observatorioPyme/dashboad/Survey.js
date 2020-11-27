@@ -88,7 +88,7 @@ class Survey extends Component {
                                             type="button"
                                             name="confirmation"
                                             onClick={this.addCompany}>
-                                                <span className="align-middle">Agregar empresa a éste lanzamiento </span>
+                                                <span className="align-middle">Agregar empresa a este lanzamiento </span>
                                         </button>
                                     </div>
                                 </div>
