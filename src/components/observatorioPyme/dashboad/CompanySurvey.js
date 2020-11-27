@@ -59,7 +59,8 @@ class CompanySurvey extends Component {
 
     render() {
         let active_view = this.state.active_view
-        console.log(this.state.empresa)
+        //console.log(this.state.empresa)
+        let porcentaje_completado = this.state.empresa.progreso.toFixed(0);
         switch(active_view) {
         case "loading": 
             return (
@@ -90,7 +91,7 @@ class CompanySurvey extends Component {
                                     </div>
 
                                     <div className="col-sm-12 col-md-3 col-lg-4 text-center font-weight-bold text-muted">
-                                        {buildStatus(this.state.empresa.progreso)}
+                                        {buildStatus(porcentaje_completado)}
                                     </div>
                                     <div className="col-sm-12 col-md-3 col-lg-4 text-center font-weight-bold text-muted align-self-center">
                                         <button 

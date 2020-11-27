@@ -15,57 +15,86 @@ class Survey extends Component {
             encuesta: this.props.location.state.encuesta,
             title: this.props.location.state.title,
             questions: this.props.location.state.questions,
+            cant_preguntas: this.props.location.state.questions.length,
+            encuestaCompleta: true,
             active_view: 'survey',
             data: [{}],
             current: [{}]
         };
     }
 
+    // Verifica si la encuenta esta completa antes de enviarla
     onSubmit = model => {
-        let title = this.state.title
-        let data = [];
-        if (model.id) {
-            data = this.state.data.filter(d => {
-                return d.id !== model.id;
-            });
-        } else {
-            model.id = + new Date();
-            //model.title =+ toString(this.state.title)
-            data = this.state.data.slice();
-        }
+        let encuesta_completa = true
         
-        var current2 = []
-        current2 = current2.concat(model)
-        console.log(current2)
+        // Cantidad total de preguntas
+        //var cant_preguntas = this.state.cant_preguntas
 
-        this.setState({
-            data: [model, ...data],
-            current: current2, // todo
-            active_view: 'confirmation',
-        });
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+        // Cantidad total de respuestas
+        //var cant_respuestas = Object.values(model).length
 
-        var lanzamiento = this.state.encuesta
-        const keys = Object.keys(model)
         var values = Object.values(model);
-        keys.forEach(key => {
-            for(var i = 0; i < lanzamiento.encuesta.questions.length; i++) {
-                var question = lanzamiento.encuesta.questions[i];
-                if(question.question == key) {
-                    lanzamiento.encuesta.questions[i].answer = values[i]
-                }
+        //console.log(values)
+        values.forEach(answer => {
+            if(answer === "" || answer.length === 0) { // Verifico que las respuestas no sean vacias o arreglos varcios.
+                encuesta_completa = false
             }
         })
-        
-        this.setState({
-            encuesta: lanzamiento,
-        });
+
+        //console.log(encuesta_completa)
+
+        if(encuesta_completa) {
+            let data = [];
+
+            /*
+            if (model.id) {
+                data = this.state.data.filter(d => {
+                    return d.id !== model.id;
+                });
+            } else {
+                model.id = + new Date();
+                data = this.state.data.slice();
+            }*/
+            
+            var current2 = []
+            current2 = current2.concat(model)
+            console.log(current2)
+
+            this.setState({
+                data: [model, ...data],
+                current: current2, // todo
+                active_view: 'confirmation',
+            });
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+
+            var lanzamiento = this.state.encuesta
+            const keys = Object.keys(model)
+            values = Object.values(model);
+            console.log(values)
+            keys.forEach(key => {
+                for(var i = 0; i < lanzamiento.encuesta.questions.length; i++) {
+                    var question = lanzamiento.encuesta.questions[i];
+                    if(question.question === key) {
+                        lanzamiento.encuesta.questions[i].answer = values[i]
+                    }
+                }
+            })
+            
+            this.setState({
+                encuesta: lanzamiento,
+            });
+        } else {
+            this.setState({
+                encuestaCompleta: false
+            });
+        }
 
     };
 
+    // Enviar encuesta completa
     sendQuestions = async () => {
 
         var lanzamiento = this.state.encuesta
@@ -80,6 +109,72 @@ class Survey extends Component {
             });
         } else {
             this.setState({active_view: 'error'});
+        }
+
+        console.log(lanzamiento)
+    }
+
+    // Arma el json con la encuesta parcialmente completa
+    onSaveAndLeave = model => {
+        let data = [];
+        
+        /*
+        if (model.id) {
+            data = this.state.data.filter(d => {
+                return d.id !== model.id;
+            });
+        } else {
+            model.id = + new Date();
+            data = this.state.data.slice();
+        }*/
+        
+        var current2 = []
+        current2 = current2.concat(model)
+        console.log(current2)
+
+        this.setState({
+            data: [model, ...data],
+            current: current2, // todo
+        });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+
+        var lanzamiento = this.state.encuesta
+        const keys = Object.keys(model)
+        var values = Object.values(model);
+        console.log(values)
+        keys.forEach(key => {
+            for(var i = 0; i < lanzamiento.encuesta.questions.length; i++) {
+                var question = lanzamiento.encuesta.questions[i];
+                if(question.question === key) {
+                    lanzamiento.encuesta.questions[i].answer = values[i]
+                }
+            }
+        })
+        
+        this.setState({
+            encuesta: lanzamiento,
+        });
+
+        this.saveAndLeave()
+
+    };
+
+    // Ejecuta el endpoint para guardar la encuesta parcialmente completa
+    saveAndLeave = async () => {
+
+        var lanzamiento = this.state.encuesta
+
+        this.setState({active_view: 'loading'});
+
+        let submitSurveyToAPI = await SubmitSurveyAPI(lanzamiento);
+
+        if(submitSurveyToAPI.rdo === 0) {
+            this.props.history.push('/empresa');
+        } else {
+            this.setState({active_view: 'error2'}); // Muestro el error por default
         }
 
         console.log(lanzamiento)
@@ -130,10 +225,10 @@ class Survey extends Component {
             }
 
             question.answer_type==="text" ? 
-                (arrayList.push({ key: question.question, label: question.question, props: { required: true }, value: question.answer}))
+                (arrayList.push({ key: question.question, label: question.question, props: { required: true }, answer: question.answer}))
 
             : question.answer_type==="number" ? 
-                (arrayList.push({ key: question.question, label: question.question, type: "number", value: question.answer }))
+                (arrayList.push({ key: question.question, label: question.question, type: "number", answer: question.answer }))
 
             : question.answer_type==="select" ? 
                 (   
@@ -211,12 +306,24 @@ class Survey extends Component {
                                             className="form"
                                             title="Registration"
                                             defaultValues={this.state.current}
-
+                                            cant_preguntas={this.state.cant_preguntas}
                                             model={arrayList}
                                             onSubmit={model => {
                                                 this.onSubmit(model);
                                             }}
+                                            onSaveAndLeave={model => {
+                                                this.onSaveAndLeave(model);
+                                            }}
                                         />
+                                        { !this.state.encuestaCompleta ? 
+                                ( 
+                                    <div className="card text-white bg-dark mt-3">
+                                        <div className="card-body text-center">
+                                            Debes completar todas las preguntas antes de enviar esta encuesta.
+                                        </div>
+                                    </div> 
+                                ) : null 
+                            }
                                     </div>
                                 </div> 
                             </div>
@@ -233,10 +340,11 @@ class Survey extends Component {
                         <div className="row justify-content-center mb-5">
                             <div className="min-height"></div>
                             <div className="col col-sm-12 col-md-9 col-lg-8">
-                                <div className="card mt-5">
+                                <div className="card mt-5 border-info">
                                     <div className="card-body">
                                         <div className="mt-4"></div>
-                                        <h4>Enviar encuesta?</h4>
+                                        <h4>¿Enviar encuesta?</h4>
+                                        <small className="text-muted">Una vez enviada no podrá editarla.</small>
                                         <div className="mt-4"></div>
                                         <button 
                                             type="button" 

@@ -11,6 +11,7 @@ import Profile from './components/empresa/Profile'
 // Componentes Observatorio Pyme
 //import Dashboard from './components/observatorioPyme/Summary'
 import Dashboard from './components/observatorioPyme/dashboad/Dashboard'
+import AddCompany from './components/observatorioPyme/dashboad/AddCompany'
 import Lanzamientos from './components/observatorioPyme/releases/Releases'
 
 import Users from './components/observatorioPyme/obsUsers/ObservatoryUsers'
@@ -35,6 +36,7 @@ class App extends Component {
 
 
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="/agregarEmpresa" component={AddCompany} />
 
 
                 <Route path="/lanzamientos" component={Lanzamientos} />

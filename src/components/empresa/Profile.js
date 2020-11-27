@@ -7,6 +7,9 @@ import Footer from '../Footer'
 // Importo llamada a endpoint
 import {GetCompany as GetCompanyAPI} from "../controller/CompanyController";
 
+// Importo llamada a endpoint
+import {UpdatePassword as UpdatePasswordAPI} from "../controller/CompanyUserController";
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +19,7 @@ class Profile extends Component {
 
             active_view: 'profile',
             
-            current_password: 'admin',
+            current_password: localStorage.getItem('pass'),
             input_current_password: '',
             new_password: '',
             confirm_password: '',
@@ -57,11 +60,6 @@ class Profile extends Component {
     handleSubmit = async (event) =>{
         event.preventDefault();
 
-        console.log(this.state.input_current_password)
-        console.log(this.state.current_password)
-        console.log(this.state.new_password)
-        console.log(this.state.confirm_password)
-
         let new_password = false
         let current_password_valid = false
 
@@ -76,34 +74,45 @@ class Profile extends Component {
         }
 
         if(this.state.new_password === this.state.confirm_password) {
-            this.setState({msj_error_new_pass: ''});
-            this.setState({className_new_pass: "form-control is-valid"});
-            new_password = true
+            if(this.state.new_password !== this.state.current_password) {
+                this.setState({msj_error_new_pass: ''});
+                this.setState({className_new_pass: "form-control is-valid"});
+                new_password = true
+            } else {
+                this.setState({msj_error_new_pass: 'La nueva contraseña debe ser distinta de la anterior.'});
+                this.setState({className_new_pass: "form-control is-invalid"});
+                new_password = false
+            }
         } else {
             this.setState({msj_error_new_pass: 'Las contraseñas ingresadas no son iguales.'});
             this.setState({className_new_pass: "form-control is-invalid"});
             new_password = false
         }
 
-        /*
         if(current_password_valid && new_password) {
-            // Ejecuto el endopoint para validar login
-            let name = this.state.user_name
-            let pass = this.state.user_password
-            let email = this.state.user_email
-            let rol = this.state.user_rol
-            let postSignup = await SignupAPI(name, pass, email, rol);
 
-            if(postSignup.rdo === 0 ) {
-                this.setState({userCreated: true});
+            let company_id = this.state.company_id
+            let new_password = this.state.new_password
+
+            this.setState({active_view: 'loading'});
+
+            let UpdatePassword = await UpdatePasswordAPI(company_id, new_password);
+
+            if(UpdatePassword.rdo === 0 ) {
+                this.setState({active_view: "success"});
             } else {
-                this.setState({userCreated: false});
+                this.setState({active_view: "error"});
             }
-        }*/
+        }
     }
 
     goBack(){
-         this.props.history.goBack();
+        this.props.history.goBack();
+    }
+
+    goToLogin = () => {
+        this.props.history.push('/login');
+        //this.setState({active_view: 'profile'});
     }
 
     handleActiveView(e) {
@@ -238,7 +247,7 @@ class Profile extends Component {
                                     </div>
                                     <hr/>
                                     <div className="card text-white bg-dark mt-5">
-                                        <div className="card-body">
+                                        <div className="card-body text-center">
                                             Lo cambios en el perfil de usuario deber&aacute;n ser solicitados al administrador del Sistema.
                                         </div>
                                     </div>
@@ -354,9 +363,7 @@ class Profile extends Component {
                                                 type="button" 
                                                 className="close" 
                                                 name="profile" 
-                                                onClick={(e) => {
-                                                    this.handleActiveView(e);
-                                                }}
+                                                onClick={this.goToLogin}
                                                 aria-label="Close">
                                                 &times;
                                             </button>

@@ -11,6 +11,16 @@ class Survey extends Component {
             empresas: this.props.lanzamiento.empresas,
         };
     }
+    
+    addCompany = () => {
+        this.props.history.push({
+            pathname: '/agregarEmpresa',
+            state: {
+                lanzamiento: this.state.lanzamiento  
+            }
+        })
+    }
+
     render() {
         const lanzamiento = this.state.lanzamiento;
         const target = '#collapse'+lanzamiento._id.toString();
@@ -70,6 +80,18 @@ class Survey extends Component {
                                 this.state.empresas
                                 .map(empresa => <CompanySurvey lanzamiento_id = {this.state.lanzamiento._id} empresa = {empresa} key={empresa.empresa_user_id} history={this.props.history}/>)) : null 
                             }
+
+                                <div className="card">
+                                    <div className="card-body text-center">
+                                        <button 
+                                            className="btn no-padding color-observatorio" 
+                                            type="button"
+                                            name="confirmation"
+                                            onClick={this.addCompany}>
+                                                <span className="align-middle">Agregar empresa a éste lanzamiento </span>
+                                        </button>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

@@ -32,6 +32,7 @@ export const Login = async (userMail, pass) => {
                 localStorage.setItem("_id",user._id);
                 localStorage.setItem("nombre",user.nombre);
                 localStorage.setItem("rol",user.rol);
+                localStorage.setItem("pass",user.password);
                 localStorage.setItem("email",user.mail);
                 localStorage.setItem("usuarioValido", true);
                 return ({rdo:0, mensaje:"Ok"}); // Correcto

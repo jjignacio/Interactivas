@@ -9,13 +9,13 @@ import Footer from "../../Footer";
 import logo_fund from '../../../img/logo_fund.png';
 
 // Importo llamada a endpoint
-import {GetAllCompanies as GetAllCompaniesAPI} from "../../controller/CompanyController";
+import {GetAllCompanies as GetAllCompaniesAPI} from "../../controller/DashboardController";
 
 // Importo llamada a endpoint
 import {GetRelease as GetReleaseAPI} from "../../controller/DashboardController";
 
-// Datos
-import encuestas from '../../../data/encuestasModelo.json'
+// Importo llamada a endpoint
+import {GetAllSurveys as GetAllSurveysAPI} from "../../controller/DashboardController";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -25,7 +25,6 @@ class Dashboard extends Component {
             cant_encuestas: '',
             cant_lanzamientos: '',
             active_view: "listUsers",
-            encuestas: encuestas,
             lanzamientos: []
 
         };
@@ -42,12 +41,13 @@ class Dashboard extends Component {
         this.setState({active_view: 'loading'});
 
         let getAllCompaniesFromAPI = await GetAllCompaniesAPI();
+        let getAllSurveyFromAPI = await GetAllSurveysAPI();
         let getReleaseFromAPI = await GetReleaseAPI();
 
-        if(getAllCompaniesFromAPI.rdo === 0) {
+        if(getAllCompaniesFromAPI.rdo === 0 && getAllSurveyFromAPI.rdo === 0) {
             this.setState({
                 cant_empresas: getAllCompaniesFromAPI.data.data.length,
-                cant_encuestas: this.state.encuestas.length
+                cant_encuestas: getAllSurveyFromAPI.data.data.length,
             })
             this.setState({active_view: 'listUsers'});
         } else {

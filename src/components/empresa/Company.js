@@ -67,7 +67,7 @@ class Company extends Component {
 
     render() {
         const active_view = this.state.active_view
-        console.log(this.state.empresa_id)
+        //console.log(this.state.empresa_id)
         switch(active_view) {
         case "loading": 
             return (
@@ -149,6 +149,7 @@ class Company extends Component {
 
                                     this.state.encuestas
                                     .filter(encuesta => encuesta.encuesta.title.toLowerCase().includes(this.state.text.toLowerCase()))
+                                    .filter(encuesta => encuesta.progreso !== 100)
                                     .map(encuesta => <SurveyView encuesta = {encuesta} vencimiento = {encuesta.fecha_vencimiento} key={encuesta._id} history={this.props.history}/>) 
 
                                     ) : (

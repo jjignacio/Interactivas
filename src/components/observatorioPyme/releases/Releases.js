@@ -95,7 +95,7 @@ class Releases extends Component {
                                                         <input 
                                                             className="form-control mr-sm-2" 
                                                             type="search" 
-                                                            placeholder="Buscar empresa" 
+                                                            placeholder="Buscar encuesta" 
                                                             aria-label="Search"
                                                             value={this.state.text_search} 
                                                             onChange={(text_search) => this.filter(text_search)} />
@@ -153,7 +153,7 @@ class Releases extends Component {
                                                         <input 
                                                             className="form-control mr-sm-2" 
                                                             type="search" 
-                                                            placeholder="Buscar empresa" 
+                                                            placeholder="Buscar encuesta" 
                                                             aria-label="Search"
                                                             value={this.state.text_search} 
                                                             onChange={(text_search) => this.filter(text_search)} />
@@ -217,7 +217,7 @@ class Releases extends Component {
                                                         <input 
                                                             className="form-control mr-sm-2" 
                                                             type="search" 
-                                                            placeholder="Buscar empresa" 
+                                                            placeholder="Buscar encuesta" 
                                                             aria-label="Search"
                                                             value={this.state.text_search} 
                                                             onChange={(text_search) => this.filter(text_search)} />
@@ -274,7 +274,7 @@ class Releases extends Component {
                                                         <input 
                                                             className="form-control mr-sm-2" 
                                                             type="search" 
-                                                            placeholder="Buscar empresa" 
+                                                            placeholder="Buscar encuesta" 
                                                             aria-label="Search"
                                                             value={this.state.text_search} 
                                                             onChange={(text_search) => this.filter(text_search)} />

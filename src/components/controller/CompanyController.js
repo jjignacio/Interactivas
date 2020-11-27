@@ -9,6 +9,7 @@ export const GetAllCompanies = async () => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });
@@ -59,6 +60,7 @@ export const CreateCompany = async (razon_social, cuit, domicilio, codigo_postal
             method: 'POST',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req
@@ -110,6 +112,7 @@ export const UpdateCompany = async (company_id, razon_social, cuit, domicilio, c
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req
@@ -147,6 +150,7 @@ export const DeleteCompany = async (company_id) => {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });
@@ -183,6 +187,7 @@ export const GetCompany = async (company_id) => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });

@@ -9,6 +9,7 @@ export const GetAllSurveys = async () => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });
@@ -46,6 +47,7 @@ export const GetAllCompanies = async () => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });
@@ -90,6 +92,7 @@ export const NewRelease = async (encuesta_id, empresas_array, expiration_date, t
             method: 'POST',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req
@@ -129,9 +132,10 @@ export const DeleteCompanyFromReleace = async (releace_id, company_id) => {
 
     try {
         const response = await fetch('http://' + URL_API, {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req

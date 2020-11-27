@@ -9,6 +9,7 @@ export const GetAllUsers = async () => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });
@@ -53,6 +54,7 @@ export const CreateUserObs = async (userName, userPass, userMail, userRol) => {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req
@@ -100,6 +102,7 @@ export const UpdateUserObs = async (userId, userName, userPass, userMail, userRo
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: req
@@ -137,6 +140,7 @@ export const DeleteUserObs = async (user_id) => {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
+                'token': localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
         });

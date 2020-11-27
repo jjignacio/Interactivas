@@ -2,6 +2,30 @@ import React, { Component } from 'react';
 
 class DynamicForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        };
+    }
+
+    componentDidMount() {
+        this.setInputs();
+    }
+
+    setInputs = () => {
+        let model = this.props.model;
+        model.map(m => {
+            let key = m.key;
+            //let value = m.value;
+            let answer = m.answer;
+            this.setState(
+                {
+                    [key]: answer
+                }
+            );
+        })
+    }
 
     state = {};
 
@@ -30,7 +54,14 @@ class DynamicForm extends Component {
 
     onSubmit = e => {
         e.preventDefault();
+
         if (this.props.onSubmit) this.props.onSubmit(this.state);
+
+    };
+
+    saveAndLeave = () => {
+        console.log(Object.values(this.state))
+        if (this.props.onSaveAndLeave) this.props.onSaveAndLeave(this.state);
     };
 
     onChange = (e, key, type = "single") => {
@@ -166,7 +197,7 @@ class DynamicForm extends Component {
                         <React.Fragment key={"cfr" + o.key}>
                             <input
                                 {...props}
-                                className="form-check-input"
+                                className="form-check-input mr-3"
                                 type={type}
                                 key={o.key}
                                 name={o.name}
@@ -226,7 +257,7 @@ class DynamicForm extends Component {
                 <form
                     className="dynamic-form"
                     onSubmit={e => {
-                        this.onSubmit(e);
+                        this.onSubmit(e, e.name);
                     }}
                 >
                     {this.renderForm()}
@@ -244,9 +275,10 @@ class DynamicForm extends Component {
                                 </div>
                                 <div className="col col-sm-12 col-md-4 col-lg-6">
                                     <button
-                                        type="button"
+                                        type="submit"
+                                        value="Submit"
                                         className="btn btn-outline-fundacion float-right"
-                                        disabled>
+                                        onClick={this.saveAndLeave}>
                                         Guardar y Salir
                                     </button>
                                 </div>
@@ -259,6 +291,7 @@ class DynamicForm extends Component {
                                     </button>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </form>
