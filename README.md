@@ -86,3 +86,9 @@ $ npm install jquery popper.js
 
 Router:
 $ npm install react-router-dom
+
+Usuario admin:
+marquezjuan2211@gmail.com
+Pass: 123456
+A partir de este usuario se puede crear otros usuarios de tipo obervatorio_admin o solo observatorio.
+También se pueden generar nuevas empresas cuyo email será el utilizado para iniciar sección con el perfil empresa para contestar las encuestas.
